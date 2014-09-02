@@ -1,0 +1,8 @@
+[user]
+	name = billyevans
+	email = pervushinai@gmail.com
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
+
