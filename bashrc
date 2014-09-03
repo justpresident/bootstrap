@@ -1,5 +1,6 @@
 
-LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
 
 alias rasp='ssh 192.168.1.43'
 alias virtbox='ssh 192.168.1.38'
