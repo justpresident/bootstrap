@@ -78,7 +78,9 @@ set viminfo='10,\"100,:20,%,n~/.viminfo
 let g:molokai_original=0
 "colo xterm16
 "colo zenburn
-colo molokai
+let g:lucius_style='light'
+colo lucius
+"colo molokai
 
 function SMap(key, action, ...)
 	let modes = " vi"
