@@ -1,6 +1,6 @@
 {
-	"color_scheme": "Packages/Theme - Freesia/Triplet Lite.tmTheme",
-	"font_face": "Source Code Pro",
+	"color_scheme": "Packages/Theme - Nil/Tubnil Bright.tmTheme",
+	"font_face": "PT Mono",
 	"font_size": 15,
 	"highlight_modified_tabs": true,
 	"ignored_packages":
@@ -8,6 +8,6 @@
 		"Vintage"
 	],
 	"tab_size": 4,
-	"theme": "Freesia.sublime-theme",
+	"theme": "Higuchi.sublime-theme",
 	"translate_tabs_to_spaces": false
 }
