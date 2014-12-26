@@ -5,6 +5,7 @@
 	"highlight_modified_tabs": true,
 	"ignored_packages":
 	[
+		"Markdown",
 		"Vintage"
 	],
 	"tab_size": 4,
