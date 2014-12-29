@@ -4,8 +4,10 @@ set -e
 
 DIR=`pwd`
 
-if [[ `grep /home/italiano/bootstrap/.bashrc ~/.bashrc` == '' ]]; then
-	echo source \'$DIR/.bashrc\' >> ~/.bashrc
+if [[ `grep $DIR/.bashrc ~/.bashrc` == '' ]]; then
+	echo "if [ -f $DIR/.bashrc ]; then" >> ~/.bashrc
+	echo "	source '$DIR/.bashrc'"    >> ~/.bashrc
+	echo fi                             >> ~/.bashrc
 fi
 
 for f in .gitconfig .inputrc .profile .vimrc .vim
