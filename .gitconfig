@@ -1,0 +1,8 @@
+[user]
+	email = justpresident@gmail.com
+	name = Roman Studenikin
+[core]
+	editor = vim
+[merge]
+	tool = vimdiff
+
