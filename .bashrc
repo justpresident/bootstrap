@@ -6,10 +6,7 @@ export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 
 # set Language and messages
-export LC_ALL=ru_RU.UTF8
-export LANG=ru_RU.UTF8
-export LC_MESSAGES=en_US.UTF8
-export LC_NUMERIC=en_US.UTF8
+export LC_ALL=en_US.UTF8
 
 
 # Terminal colors and greeting message
