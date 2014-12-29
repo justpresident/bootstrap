@@ -39,7 +39,7 @@ case $TERM in
 esac
 
 PS1="\u@\h [\t]> "
-PS1="${TITLEBAR}$CYAN[\t] $BLUE\u$NO_COLOR@$DARK_ORANGE\h $DARK_ORANGE:\w$NO_COLOR\\$ "
+PS1="$NO_COLOR[\t] ${TITLEBAR}$CYAN\u$NO_COLOR@$DARK_ORANGE\h $NO_COLOR:\w\\$ "
 PS2='continue-> '
 PS4='$0.$LINENO+ '
 
