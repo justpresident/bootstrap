@@ -53,6 +53,8 @@ CUR_DIR=`readlink -f $CUR_DIR`
 
 
 export PATH=$PATH:$CUR_DIR/bin
-export PATH=$PATH:/home/italiano/apps/sbt/bin
+if [[ -d $HOME/apps/sbt/bin ]]; then
+	export PATH=$PATH:$HOME/apps/sbt/bin
+fi
 
 source "$CUR_DIR/.bash_aliases"

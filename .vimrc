@@ -9,11 +9,9 @@ filetype plugin indent on
 syntax on
 
 au BufNewFile,BufRead *.py set filetype=python
-au BufNewFile,BufRead *.py colorscheme molokai
 autocmd BufEnter *.py set ai sw=4 ts=4 sta et fo=croql softtabstop=4
 
 au BufNewFile,BufRead *.pl,*.pm set filetype=perl
-au BufNewFile,BufRead *.pl,*.pm colorscheme italiano
 
 
 set wrap
@@ -78,6 +76,3 @@ set viminfo='10,\"100,:20,%,n~/.viminfo
     au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
 syn sync fromstart
-
-"colorscheme sweyla682066
-colorscheme italiano
