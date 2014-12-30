@@ -1,8 +1,19 @@
+" Set environment to 256 colours
+set t_Co=256
+
 set tabstop=4
 set shiftwidth=4
 set smarttab
 
+filetype plugin indent on
+syntax on
+
+au BufNewFile,BufRead *.py set filetype=python
+au BufNewFile,BufRead *.py colorscheme molokai
 autocmd BufEnter *.py set ai sw=4 ts=4 sta et fo=croql softtabstop=4
+
+au BufNewFile,BufRead *.pl,*.pm set filetype=perl
+au BufNewFile,BufRead *.pl,*.pm colorscheme italiano
 
 
 set wrap
@@ -33,18 +44,9 @@ set exrc
 set backspace=2
 set background=light
 
-syntax on
 set autoindent
-highlight Type term=underline ctermfg=1
-highlight Statement term=bold ctermfg=7
-highlight Constant term=underline ctermfg=3
-highlight Special term=underline ctermfg=5
-highlight Comment term=bold ctermfg=DarkGrey
-highlight PreProc term=underline ctermfg=8
-highlight LineNr ctermfg=DarkGrey
 
 set swapsync=
-
 
 function Diff()
 w! %_vimdiff
@@ -77,3 +79,5 @@ set viminfo='10,\"100,:20,%,n~/.viminfo
 
 syn sync fromstart
 
+"colorscheme sweyla682066
+colorscheme italiano

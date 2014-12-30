@@ -1,39 +1,31 @@
-" Vim color file
-" Maintainer: David Ne\v{c}as (Yeti) <yeti@physics.muni.cz>
-" Last Change: 2001 May 21
-" URI: http://physics.muni.cz/~yeti/download/peachpuff.vim
 
-" This color scheme uses a peachpuff background (what you've expected when it's
-" called peachpuff?).
-"
-" Note: Only GUI colors differ from default, on terminal it's just `light'.
-
-" First remove all existing highlighting.
-set background=light
+hi clear Normal
+set bg&
 hi clear
 if exists("syntax_on")
   syntax reset
 endif
 
-let colors_name = "peachpuff"
+" Set environment to 256 colours
+set t_Co=256
 
-hi Normal guibg=PeachPuff guifg=Black
+let colors_name = "italiano"
 
 hi SpecialKey term=bold ctermfg=4 guifg=Blue
 hi NonText term=bold cterm=bold ctermfg=4 gui=bold guifg=Blue
 hi Directory term=bold ctermfg=4 guifg=Blue
 hi ErrorMsg term=standout cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red
 hi IncSearch term=reverse cterm=reverse gui=reverse
-hi Search term=reverse ctermbg=3 guibg=Gold2
+hi Search term=bold cterm=reverse ctermbg=193 guibg=Gold2
 hi MoreMsg term=bold ctermfg=2 gui=bold guifg=SeaGreen
 hi ModeMsg term=bold cterm=bold gui=bold
-hi LineNr term=underline ctermfg=3 guifg=Red3
+hi LineNr term=underline ctermfg=DarkGrey guifg=Red3
 hi Question term=standout ctermfg=2 gui=bold guifg=SeaGreen
 hi StatusLine term=bold,reverse cterm=bold,reverse gui=bold guifg=White guibg=Black
 hi StatusLineNC term=reverse cterm=reverse gui=bold guifg=PeachPuff guibg=Gray45
 hi VertSplit term=reverse cterm=reverse gui=bold guifg=White guibg=Gray45
 hi Title term=bold ctermfg=5 gui=bold guifg=DeepPink3
-hi Visual term=reverse cterm=reverse gui=reverse guifg=Grey80 guibg=fg
+hi Visual                      ctermbg=236
 hi VisualNOS term=bold,underline cterm=bold,underline gui=bold,underline
 hi WarningMsg term=standout ctermfg=1 gui=bold guifg=Red
 hi WildMenu term=standout ctermfg=0 ctermbg=3 guifg=Black guibg=Yellow
@@ -47,13 +39,30 @@ hi Cursor guifg=bg guibg=fg
 hi lCursor guifg=bg guibg=fg
 
 " Colors for syntax highlighting
-hi Comment term=bold ctermfg=4 guifg=#406090
-hi Constant term=underline ctermfg=1 guifg=#c00058
-hi Special term=bold ctermfg=5 guifg=SlateBlue
-hi Identifier term=underline ctermfg=6 guifg=DarkCyan
-hi Statement term=bold ctermfg=3 gui=bold guifg=Brown
-hi PreProc term=underline ctermfg=5 guifg=Cyan
-hi Type term=underline ctermfg=2 gui=bold guifg=SeaGreen
+hi Comment term=bold ctermfg=DarkGrey guifg=#8080ff
+hi Constant term=underline ctermfg=3 guifg=#c00058
+hi Special term=underline ctermfg=5 guifg=SlateBlue
+" all variables and hashes
+hi Identifier ctermfg=6 guifg=DarkCyan
+
+" my, shift, return, exit, scalar, keys
+hi Statement term=bold ctermfg=7 gui=bold guifg=Brown
+" shebang!
+hi PreProc term=underline ctermfg=55 guifg=Cyan
+hi Type term=underline ctermfg=1 gui=bold guifg=SeaGreen
 hi Ignore cterm=bold ctermfg=7 guifg=bg
 hi Error term=reverse cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red
 hi Todo term=standout ctermfg=0 ctermbg=3 guifg=Blue guibg=Yellow
+
+" if,else
+"hi Conditional     ctermfg=75               cterm=none
+" foreach
+"hi Repeat          ctermfg=75               cterm=none
+
+" sub
+hi Keyword         ctermfg=161               cterm=bold
+
+"defined, or, eq
+hi Operator        ctermfg=69
+
+hi Function        ctermfg=7
