@@ -1,5 +1,5 @@
 
-hi clear Normal
+"hi clear Normal
 set bg&
 hi clear
 if exists("syntax_on")
@@ -16,7 +16,7 @@ hi NonText term=bold cterm=bold ctermfg=4 gui=bold guifg=Blue
 hi Directory term=bold ctermfg=4 guifg=Blue
 hi ErrorMsg term=standout cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red
 hi IncSearch term=reverse cterm=reverse gui=reverse
-hi Search term=bold cterm=reverse ctermbg=193 guibg=Gold2
+hi Search term=reverse ctermbg=193 guibg=Gold2
 hi MoreMsg term=bold ctermfg=2 gui=bold guifg=SeaGreen
 hi ModeMsg term=bold cterm=bold gui=bold
 hi LineNr term=underline ctermfg=DarkGrey guifg=Red3
@@ -41,12 +41,13 @@ hi lCursor guifg=bg guibg=fg
 " Colors for syntax highlighting
 hi Comment term=bold ctermfg=DarkGrey guifg=#8080ff
 hi Constant term=underline ctermfg=3 guifg=#c00058
-hi Special term=underline ctermfg=5 guifg=SlateBlue
+hi Special term=bold ctermfg=6 guifg=SlateBlue
 " all variables and hashes
-hi Identifier ctermfg=6 guifg=DarkCyan
+hi Identifier cterm=NONE ctermfg=6 guifg=DarkCyan
 
 " my, shift, return, exit, scalar, keys
-hi Statement term=bold ctermfg=7 gui=bold guifg=Brown
+hi Statement cterm=NONE ctermfg=146 gui=bold guifg=Brown
+hi Label cterm=bold ctermfg=189
 " shebang!
 hi PreProc term=underline ctermfg=55 guifg=Cyan
 hi Type term=underline ctermfg=1 gui=bold guifg=SeaGreen
@@ -60,9 +61,9 @@ hi Todo term=standout ctermfg=0 ctermbg=3 guifg=Blue guibg=Yellow
 "hi Repeat          ctermfg=75               cterm=none
 
 " sub
-hi Keyword         ctermfg=161               cterm=bold
+hi Keyword         ctermfg=161
 
 "defined, or, eq
 hi Operator        ctermfg=69
 
-hi Function        ctermfg=7
+hi Function        ctermfg=70
