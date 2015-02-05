@@ -10,7 +10,7 @@ if [[ `grep $DIR/.bashrc ~/.bashrc` == '' ]]; then
 	echo fi                             >> ~/.bashrc
 fi
 
-for f in .gitconfig .inputrc .profile .vimrc .vim
+for f in .gitconfig .inputrc .profile .vimrc .vim .my.cnf
 do
 	rm -rf ~/$f
 	ln -vs $DIR/$f ~/$f
