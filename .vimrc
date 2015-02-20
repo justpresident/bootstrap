@@ -13,11 +13,10 @@ autocmd BufEnter *.py set ai sw=4 ts=4 sta et fo=croql softtabstop=4
 
 au BufNewFile,BufRead *.pl,*.pm set filetype=perl
 
-
-set wrap
-set ai
 set nu
-set cin
+set wrap
+set autoindent
+set cindent
 
 set showmatch
 set matchtime=1
@@ -41,8 +40,6 @@ set guioptions-=m
 set exrc
 set backspace=2
 set background=light
-
-set autoindent
 
 set swapsync=
 
