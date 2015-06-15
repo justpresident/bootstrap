@@ -16,14 +16,19 @@ do
 	ln -vs $DIR/$f ~/$f
 done
 
-read -n 1 -p "Would you like to update fonts? (y/N) " UPDATE_FONTS
-if [[ -n $UPDATE_FONTS && $UPDATE_FONTS == 'y' ]]; then
-	echo "updating fonts";
-	sudo fc-cache -f -v
-fi
-
 mkdir -p ~/.ssh/
 ln -vfs $DIR/.ssh/config ~/.ssh/config
+
+read -n 1 -p "Would you like to update fonts? (y/N) " UPDATE_FONTS
+if [[ -n $UPDATE_FONTS && $UPDATE_FONTS == 'y' ]]; then
+	echo "updating fonts...";
+	sudo fc-cache -f -v
+
+	echo "enabling bitmapped fonts in console..."
+	sudo rm -f /etc/fonts/conf.d/70-no-bitmaps.conf
+	sudo cp $DIR/50-enable-fixed.conf /etc/fonts/conf.d/
+	sudo dpkg-reconfigure fontconfig
+fi
 
 echo
 echo "Bootstrap is successfull!"
