@@ -1,6 +1,5 @@
 
 # SSH specific: key forwarding
-ssh-add >/dev/null 2>&1
 alias ssh='ssh -A'
 
 # command aliases
