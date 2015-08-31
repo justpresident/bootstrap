@@ -6,3 +6,6 @@
 [merge]
 	tool = vimdiff
 
+[alias]
+	st = status
+	unstage = reset HEAD --

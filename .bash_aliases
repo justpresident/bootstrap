@@ -8,6 +8,25 @@ alias two_displays='xrandr --output eDP1 --mode 1920x1080 --rotate normal --pos 
 alias mplayer_speed_control='mplayer -af scaletempo=stride=30:overlap=.50:search=10'
 alias mplayer_cam='mplayer tv:// -tv driver=v4l2:device=/dev/video0:width=640:height=480:hue=100'
 
+function tagit {
+	if [[ -z $1 ]]; then
+		echo "Usage: $0 DIR_NAME";
+		return;
+	fi
+	dir_path=$(readlink -f $1 2>/dev/null)
+
+	if [[ ! -d $dir_path ]]; then
+		echo "There is no such dir"
+		return;
+	fi
+	
+	ctags -f $dir_path/tags --recurse --totals \
+		--exclude=blib --exclude=.svn \
+		--exclude=.git --exclude='*~' \
+		--extra=q \
+		--languages=Perl \
+		--langmap=Perl:+.t
+}
 
 alias bootstrap_cmd='echo "git clone https://github.com/justpresident/bootstrap.git; cd bootstrap; ./bootstrap.sh; cd -; source .bashrc"'
 
