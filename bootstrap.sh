@@ -22,11 +22,13 @@ done
 read -n 1 -p "Would you like to update fonts? (y/N) " UPDATE_FONTS
 if [[ -n $UPDATE_FONTS && $UPDATE_FONTS == 'y' ]]; then
 	echo "updating fonts...";
-	sudo fc-cache -f -v
+	fc-cache -vf ~/.fonts/
 
 	echo "enabling bitmapped fonts in console..."
 	sudo rm -f /etc/fonts/conf.d/70-no-bitmaps.conf
 	sudo cp $DIR/50-enable-fixed.conf /etc/fonts/conf.d/
+    mkdir -p ~/.config/fontconfig/conf.d/
+    cp $DIR/10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
 	sudo dpkg-reconfigure fontconfig
 fi
 

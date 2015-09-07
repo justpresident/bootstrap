@@ -12,7 +12,7 @@ syntax on
 au BufNewFile,BufRead *.py set filetype=python
 autocmd BufEnter *.py set ai sw=4 ts=4 sta et fo=croql softtabstop=4
 
-au BufNewFile,BufRead *.pl,*.pm set filetype=perl
+"au BufNewFile,BufRead *.pl,*.pm set filetype=perl
 
 set nu
 set wrap
@@ -86,9 +86,46 @@ set wildignore+=*.tar.*
 nnoremap <leader>f :tabfind
 nnoremap <leader>F :tabfind <C-R>=expand('%:h').'/'<CR>
 
-hard-path set tags=./tags,tags,~/b/main/tags,~b/tags
+set tags=./tags;,tags;
 
 set viminfo='10,\"100,:20,%,n~/.viminfo
     au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
+" work with buffers
+nmap <leader>T :enew<cr>
+nmap <leader>l :bnext<CR>
+nmap <leader>h :bprevious<CR>
+nmap <leader>bq :bp <BAR> bd #<CR>
+nmap <leader>bl :ls<CR>
+
+let g:airline_powerline_fonts = 1
+set laststatus=2
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
+let g:airline_mode_map = {
+  \ '__' : '-',
+  \ 'n'  : 'N',
+  \ 'i'  : 'I',
+  \ 'R'  : 'R',
+  \ 'c'  : 'C',
+  \ 'v'  : 'V',
+  \ 'V'  : 'V',
+  \ '' : 'V',
+  \ 's'  : 'S',
+  \ 'S'  : 'S',
+  \ '' : 'S',
+  \ }
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
+let g:airline_theme='ubaryd'
+
+function! AirlineInit()
+    let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
+endfunction
+
+colorscheme italiano
+autocmd VimEnter * call AirlineInit()
 syn sync fromstart
