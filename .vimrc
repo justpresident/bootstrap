@@ -5,6 +5,7 @@ set tabstop=4
 set shiftwidth=4
 set smarttab
 set expandtab
+set listchars=tab:>·,trail:·    " but only show tabs and trailing whitespace
 
 filetype plugin indent on
 syntax on
@@ -128,4 +129,54 @@ endfunction
 
 colorscheme italiano
 autocmd VimEnter * call AirlineInit()
+
+function! Find(...)
+    if a:0==2
+        let path=a:1
+        let query=a:2
+    else
+        let path="./"
+        let query=a:1
+    endif
+
+    if !exists("g:FindIgnore")
+        let ignore = ""
+    else
+        let ignore = " | egrep -v '".join(g:FindIgnore, "|")."'"
+    endif
+
+    let l:list=system("find ".path." -type f -path '".query."'".ignore)
+    let l:num=strlen(substitute(l:list, "[^\n]", "", "g"))
+
+    if l:num < 1
+        echo "'".query."' not found"
+        return
+    endif
+
+    if l:num == 1
+        exe "open " . substitute(l:list, "\n", "", "g")
+    else
+        let tmpfile = tempname()
+        exe "redir! > " . tmpfile
+        silent echon l:list
+        redir END
+        let old_efm = &efm
+        set efm=%f
+
+        if exists(":cgetfile")
+            execute "silent! cgetfile " . tmpfile
+        else
+            execute "silent! cfile " . tmpfile
+        endif
+
+        let &efm = old_efm
+
+        " Open the quickfix window below the current window
+        botright copen
+
+        call delete(tmpfile)
+    endif
+endfunction
+command! -nargs=* Find :call Find(<f-args>)
+
 syn sync fromstart

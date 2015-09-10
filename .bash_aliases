@@ -23,7 +23,8 @@ function tagit {
 	ctags -f $dir_path/tags --recurse --totals \
 		--exclude=blib --exclude=.svn \
 		--exclude=.git --exclude='*~' \
-		--extra=q \
+		--extra=+fq \
+        --fields=+K \
 		--languages=Perl \
 		--langmap=Perl:+.t
 }
