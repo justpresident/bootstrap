@@ -72,8 +72,6 @@ command Utf8 call Utf8()
 :imap <C-Up> <ESC>mzMkzz`zi<Right>
 :imap <C-Down> <ESC>mzMjzz`zi<Right>
 
-nnoremap <C-Left> :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 
