@@ -1,5 +1,6 @@
 " Set environment to 256 colours
 set t_Co=256
+set term=xterm-256color
 
 set tabstop=4
 set shiftwidth=4
