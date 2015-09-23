@@ -1,8 +1,0 @@
-#!/bin/sh
-[ "$TERM" = "rxvt-unicode" ] && export TERM=rxvt-unicode-256color
-cd
-if tmux -2 new-session -s S$$ -t 0; then
-  tmux kill-session -t S$$
-else
-  tmux -2
-fi

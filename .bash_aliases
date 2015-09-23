@@ -8,6 +8,17 @@ alias two_displays='xrandr --output eDP1 --mode 1920x1080 --rotate normal --pos 
 alias mplayer_speed_control='mplayer -af scaletempo=stride=30:overlap=.50:search=10'
 alias mplayer_cam='mplayer tv:// -tv driver=v4l2:device=/dev/video0:width=640:height=480:hue=100'
 
+function rtmux {
+    SNAME=$1
+    if [[ -z $SNAME ]]; then
+        echo "Open sessions:"
+        tmux list-sessions
+        return
+    fi
+
+    tmux -2 new-session -A -s $SNAME
+}
+
 function tagit {
 	if [[ -z $1 ]]; then
 		echo "Usage: $0 DIR_NAME";
