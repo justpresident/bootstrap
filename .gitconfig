@@ -9,3 +9,5 @@
 [alias]
 	st = status
 	unstage = reset HEAD --
+	graph = log --graph --decorate --oneline
+	co = checkout
