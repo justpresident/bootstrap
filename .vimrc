@@ -6,6 +6,7 @@ set tabstop=4
 set shiftwidth=4
 set smarttab
 set expandtab
+set list                        " show invisible characters
 set listchars=tab:>·,trail:·    " but only show tabs and trailing whitespace
 
 filetype plugin indent on

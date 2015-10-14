@@ -40,6 +40,9 @@ function tagit {
 		--langmap=Perl:+.t
 }
 
+alias uri_decode='perl -MURI::Encode -ne "print URI::Encode::uri_decode($_)"'
+alias uri_encode='perl -MURI::Encode -ne "print URI::Encode::uri_encode($_)"'
+
 alias bootstrap_cmd='echo "git clone https://github.com/justpresident/bootstrap.git; cd bootstrap; ./bootstrap.sh; cd -; source .bashrc"'
 
 function bootstrap_host {
