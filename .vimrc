@@ -68,6 +68,8 @@ e ++enc=utf8
 endfunction
 command Utf8 call Utf8()
 
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+
 :map <C-Up> mzMkzz`z
 :map <C-Down> mzMjzz`z
 :imap <C-Up> <ESC>mzMkzz`zi<Right>
@@ -84,8 +86,8 @@ set wildignore+=*.pyc,*.class,*.sln,*.Master,*.csproj,*.csproj.user,*.cache,*.dl
 set wildignore+=*/.git/**/*,*/.hg/**/*,*/.svn/**/*
 set wildignore+=tags
 set wildignore+=*.tar.*
-nnoremap <leader>f :tabfind
-nnoremap <leader>F :tabfind <C-R>=expand('%:h').'/'<CR>
+" nnoremap <leader>f :tabfind
+" nnoremap <leader>F :tabfind <C-R>=expand('%:h').'/'<CR>
 
 set tags=./tags;,tags;
 
