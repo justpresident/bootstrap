@@ -132,6 +132,17 @@ endfunction
 colorscheme italiano
 autocmd VimEnter * call AirlineInit()
 
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+let g:ctrlp_open_new_file = 't'
+let g:ctrlp_user_command = {
+\ 'types': {
+  \ 1: ['.git', 'cd %s && git ls-files'],
+  \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+  \ },
+\ 'fallback': 'find %s -type f'
+\ }
+let g:ctrlp_extensions=['tag']
+
 function! Find(...)
     if a:0==2
         let path=a:1
