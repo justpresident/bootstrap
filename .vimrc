@@ -68,6 +68,7 @@ e ++enc=utf8
 endfunction
 command Utf8 call Utf8()
 
+map <C-a> <esc>ggVG<CR>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 :map <C-Up> mzMkzz`z
