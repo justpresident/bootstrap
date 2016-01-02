@@ -19,7 +19,10 @@ done
 #mkdir -p ~/.ssh/
 #ln -vfs $DIR/.ssh/config ~/.ssh/config
 
-read -n 1 -p "Would you like to update fonts? (y/N) " UPDATE_FONTS
+if [[ -z $UPDATE_FONTS ]]; then
+    read -n 1 -p "Would you like to update fonts? (y/N) " UPDATE_FONTS
+fi
+
 if [[ -n $UPDATE_FONTS && $UPDATE_FONTS == 'y' ]]; then
 	echo "updating fonts...";
 	fc-cache -vf ~/.fonts/
