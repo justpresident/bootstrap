@@ -133,7 +133,7 @@ endfunction
 colorscheme italiano
 autocmd VimEnter * call AirlineInit()
 
-set runtimepath^=~/.vim/bundle/ctrlp.vim
+"set runtimepath^=~/.vim/bundle/ctrlp.vim
 let g:ctrlp_open_new_file = 't'
 let g:ctrlp_user_command = {
 \ 'types': {
@@ -194,3 +194,4 @@ endfunction
 command! -nargs=* Find :call Find(<f-args>)
 
 syn sync fromstart
+execute pathogen#infect()
