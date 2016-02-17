@@ -13,9 +13,9 @@ filetype plugin indent on
 syntax on
 
 au BufNewFile,BufRead *.py set filetype=python
-autocmd BufEnter *.py set ai sw=4 ts=4 sta et fo=croql softtabstop=4
-
-"au BufNewFile,BufRead *.pl,*.pm set filetype=perl
+autocmd BufEnter *.py set ai sw=4 ts=4 sta et fo=croql softtabstop=4 list
+autocmd BufEnter  *.pl,*.pm set list
+autocmd BufEnter  *.go set nolist
 
 set nu
 set wrap
@@ -142,6 +142,12 @@ let g:ctrlp_user_command = {
   \ },
 \ 'fallback': 'find %s -type f'
 \ }
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/](\.(git|hg|svn)|\_site)$',
+  \ 'file': '\v\.(exe|so|dll|class|png|jpg|jpeg)$',
+\}
+let g:ctrlp_working_path_mode = 'r'
+
 let g:ctrlp_extensions=['tag']
 
 function! Find(...)
