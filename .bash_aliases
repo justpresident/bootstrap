@@ -10,6 +10,30 @@ alias two_displays_work='xrandr --output eDP1 --mode 1366x768 --rotate normal --
 alias mplayer_speed_control='mplayer -af scaletempo=stride=30:overlap=.50:search=10'
 alias mplayer_cam='mplayer tv:// -tv driver=v4l2:device=/dev/video0:width=640:height=480:hue=100'
 
+## doc: list content differences between two directories
+dirdiff()
+{
+    local src="$1" dst
+    dst="${2:-.}"
+
+    if [ -z "$src" ]; then
+        err "missing original directory"
+        return 1
+    fi
+
+    if ! [ -d "$src" ]; then
+        err "$src: not a directory"
+        return 1
+    fi
+    if ! [ -d "$dst" ]; then
+        err "$dst: not a directory"
+        return 1
+    fi
+
+    diff -u <(cd "$src" && find . | LC_ALL=C sort | sed -e 's/^..//') \
+        <(cd "$dst" && find . | LC_ALL=C sort | sed -e 's/^..//')
+}
+
 function rtmux {
     SNAME=$1
     if [[ -z $SNAME ]]; then
