@@ -1,0 +1,124 @@
+#!/bin/bash
+
+howto(){
+  echo "
+  Usage: pbin [ -l <code language> ] [ <file> ]
+
+  Example:
+      pbin --                  # paste content in clipboard
+      pbin -l json             # paste while set code language (for highlighter)
+      pbin tmp.pl              # paste a file
+      git diff | pbin -l diff  # paste through pipe
+"
+}
+
+# DEBUG
+#set -x
+
+realargs="$@"
+while [ $# -gt 0 ]; do
+    case "$1" in
+      --)
+        USE_CLIPBOARD=true
+        shift
+        ;;
+      -f)
+        FILENAME=$2
+        shift
+        ;;
+      -l)
+        USE_CLIPBOARD=true
+        LANGUAGE=$2
+        shift
+        ;;
+      -h)
+        howto
+        exit
+        ;;
+      *)
+        if [[ -z $FILENAME ]]; then
+          FILENAME=$1
+        fi
+        ;;
+    esac
+    shift
+done
+set -- $realargs
+
+
+if [[ -t 0 ]]; then
+  # When in terminal, try use clipboard
+  if [[ -z $FILENAME && $USE_CLIPBOARD ]]; then
+    echo "Pasting clipboard content..."
+    PASTECONTENT=$(pbpaste)
+    if [[ $PASTECONTENT ]]; then
+      LANGUAGE=${LANGUAGE:=txt}
+      FILENAME="/tmp/pbin.$LANGUAGE"
+    elif [[ -e /usr/local/bin/pngpaste ]]; then
+      TFILE="/tmp/pngpaste.$$.png"
+      if [[ ! $(/usr/local/bin/pngpaste $TFILE 2>&1) =~ "No PNG data" ]]; then
+        FILENAME=$TFILE
+      else
+        echo 'Empty content, exit.'
+        exit 90;
+      fi
+    fi
+  fi
+else
+  # when inside a pipe, language is "diff" by default
+  PASTECONTENT=$(< /dev/stdin)
+  LANGUAGE=${LANGUAGE:=diff}
+  if [[ -z $PASTECONTENT ]]; then
+    echo 'Empty content, exit.'
+    exit 0;
+  fi
+fi
+
+# Guess language based on filetype
+if [[ -z $LANGUAGE ]]; then
+  LANGUAGE=${FILENAME##*.}
+  if [[ $LANGUAGE == $FILENAME ]]; then
+    # no extension, defaults to bash
+    LANGUAGE=bash
+  fi
+fi
+if [[ $LANGUAGE =~ inc|tmpl|html ]]; then
+  LANGUAGE=html4strict
+elif [[ $LANGUAGE =~ less|scss|sass ]]; then
+  LANGUAGE=css
+elif [[ $LANGUAGE =~ js|javascript ]]; then
+  LANGUAGE=jquery
+elif [[ $LANGUAGE =~ pl|pm ]]; then
+  LANGUAGE=perl
+elif [[ $LANGUAGE =~ sh ]]; then
+  LANGUAGE=bash
+fi
+
+AUTHOR="author=$(whoami)"
+
+SERVER="pa"; SERVER="${SERVER}ste."; SERVER="${SERVER}bo"; SERVER="${SERVER}ok"; SERVER="${SERVER}ing"; SERVER="${SERVER}.com";
+
+send-image(){
+  curl --noproxy $SERVER -s -F $AUTHOR -F "pasteImage=@$1" https://$SERVER/api
+}
+
+send-text(){
+  curl --noproxy $SERVER -s -F $AUTHOR -F "pasteEnter=$1" -F "highlighter=$2" https://$SERVER/api
+}
+
+if [[ $LANGUAGE =~ png|jpeg|jpg|gif|bmp|JPG|JPEG|PNG|GIF|BMP ]]; then
+  RES=$(send-image "$FILENAME")
+elif [[ $PASTECONTENT ]]; then
+  RES=$(send-text "$PASTECONTENT" $LANGUAGE)
+elif [[ $FILENAME ]]; then
+  RES=$(send-text "<$FILENAME" $LANGUAGE)
+else
+  howto
+  exit 0
+fi
+
+if [[ $RES =~ "Success"  ]]; then
+  echo $RES | grep -o 'http[^"]*'
+else
+  echo $RES
+fi
