@@ -46,24 +46,33 @@ function rtmux {
 }
 
 function tagit {
-	if [[ -z $1 ]]; then
-		echo "Usage: $0 DIR_NAME";
-		return;
-	fi
-	dir_path=$(readlink -f $1 2>/dev/null)
+    if [[ -z $1 || -z $2 ]]; then
+        echo "Usage: $0 DIR_NAME LANGUAGE";
+        echo "Available languages:";
+        ctags --list-languages
+        return;
+    fi
+    dir_path=$(readlink -f $1 2>/dev/null)
 
-	if [[ ! -d $dir_path ]]; then
-		echo "There is no such dir"
-		return;
-	fi
-	
-	ctags -f $dir_path/tags --recurse --totals \
-		--exclude=blib --exclude=.svn \
-		--exclude=.git --exclude='*~' \
-		--extra=+fq \
+    if [[ ! -d $dir_path ]]; then
+        echo "There is no such dir"
+        return;
+    fi
+
+    LANG=$2
+    if [[ ! $(ctags --list-languages | grep -E "^${LANG}\$") ]]; then
+        echo "Language ${LANG} is not supported. Supported languages:";
+        ctags --list-languages
+        return
+    fi
+
+    ctags -f $dir_path/tags --recurse --totals \
+        --exclude=blib --exclude=.svn \
+        --exclude=.git --exclude='*~' \
+        --extra=+fq \
         --fields=+K \
-		--languages=Perl \
-		--langmap=Perl:+.t
+        --languages=${LANG} \
+        --langmap=Perl:+.t
 }
 
 alias uri_decode=$'perl -MURI::Encode -ne \'print URI::Encode::uri_decode($_)\''
