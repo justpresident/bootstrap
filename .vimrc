@@ -16,6 +16,7 @@ au BufNewFile,BufRead *.py set filetype=python
 autocmd BufEnter *.py set ai sw=4 ts=4 sta et fo=croql softtabstop=4 list
 autocmd BufEnter  *.pl,*.pm set list
 autocmd BufEnter  *.go set nolist
+autocmd BufNewFile,BufRead *.tt set ft=html
 
 set nu
 set wrap
