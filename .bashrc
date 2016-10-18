@@ -5,6 +5,9 @@
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 
+shopt -s histappend
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
+
 # set Language and messages
 export LC_ALL=en_US.UTF8
 

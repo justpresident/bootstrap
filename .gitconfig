@@ -11,3 +11,5 @@
 	unstage = reset HEAD --
 	graph = log --graph --decorate --oneline
 	co = checkout
+[push]
+	default = simple

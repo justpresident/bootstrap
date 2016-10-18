@@ -6,13 +6,44 @@ alias ssh='ssh -A'
 alias one_display='xrandr --output eDP1 --mode 1920x1080 --rotate normal --pos 0x0 --output DP1 --off'
 alias two_displays='xrandr --output eDP1 --mode 1920x1080 --rotate normal --pos 0x0 --output DP1 --mode 1600x1200 --left-of eDP1'
 alias one_display_work='xrandr --output eDP1 --mode 1366x768 --rotate normal --pos 0x0 --output DP1-2 --off'
-alias two_displays_work='xrandr --output eDP1 --mode 1366x768 --rotate normal --pos 0x0 --output DP1-2 --mode 1920x1080 --right-of eDP1 --primary'
+alias two_displays_work='xrandr --output eDP1 --mode 1366x768 --rotate normal --pos 0x0 --output DP1-2 --mode 1920x1080 --left-of eDP1 --primary'
 alias mplayer_speed_control='mplayer -af scaletempo=stride=30:overlap=.50:search=10'
 alias mplayer_cam='mplayer tv:// -tv driver=v4l2:device=/dev/video0:width=640:height=480:hue=100'
 
+function save_nethack {
+    SAVE_NAME=$1;
+    if [[ -z $SAVE_NAME ]]; then
+        SAVE_NAME="nethack";
+    fi
+    if [[ -d ~/Dropbox/nethack_saves/$SAVE_NAME ]]; then
+        read -n 1 -p "Would you like to replace existing name '$SAVE_NAME'? (y/N) " REPLACE_GAME
+        echo ;
+        if [[ -n $REPLACE_GAME && $REPLACE_GAME == 'y' ]]; then
+            sudo rm -rf ~/Dropbox/nethack_saves/$SAVE_NAME
+        else
+            return
+        fi
+    fi
+    echo "Saving '$SAVE_NAME'"
+    sudo cp -r /var/games/nethack Dropbox/nethack_saves/$SAVE_NAME
+}
+
+function load_nethack {
+    SAVE_NAME=$1;
+    if [[ -z $SAVE_NAME || ! -d ~/Dropbox/nethack_saves/$SAVE_NAME ]]; then
+        echo Available save names:;
+        ls -1 ~/Dropbox/nethack_saves/
+        return
+    fi
+
+    sudo rm -rf /var/games/nethack;
+    sudo cp -r ~/Dropbox/nethack_saves/$SAVE_NAME /var/games/nethack
+    sudo chmod -R a+rw /var/games/nethack
+    echo "Loaded"
+}
+
 ## doc: list content differences between two directories
-dirdiff()
-{
+function dirdiff {
     local src="$1" dst
     dst="${2:-.}"
 
