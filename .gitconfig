@@ -4,7 +4,8 @@
 [core]
 	editor = vim
 [merge]
-	tool = vimdiff
+    tool = vimdiff
+    renamelimit = 2567
 
 [alias]
 	st = status

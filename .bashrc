@@ -55,22 +55,6 @@ CUR_DIR=`dirname ${BASH_ARGV[0]}`
 CUR_DIR=`readlink -f $CUR_DIR`
 
 
-export PATH=$PATH:$CUR_DIR/bin
-if [[ -d $HOME/apps/sbt/bin ]]; then
-	export PATH=$PATH:$HOME/apps/sbt/bin
-fi
-
-# Android dev
-if [[ -d $HOME/apps/android-sdk-linux/tools/ ]]; then
-	export PATH=$PATH:$HOME/apps/android-sdk-linux/tools/
-fi
-
-if [[ -d $HOME/apps/android-ndk-r10e/ ]]; then
-	export PATH=$PATH:$HOME/apps/android-ndk-r10e/
-fi
-
-if [[ -d $HOME/apps/qt/Tools/QtCreator/bin ]]; then
-	export PATH=$PATH:$HOME/apps/qt/Tools/QtCreator/bin/
-fi
+export PATH=$CUR_DIR/bin:$PATH
 
 source "$CUR_DIR/.bash_aliases"
