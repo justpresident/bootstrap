@@ -1,0 +1,10 @@
+#!/bin/sh
+XMESSAGE=$(which gxmessage) || XMESSAGE=xmessage
+
+$XMESSAGE " Logout Selections " -center -buttons "Cancel":1,"Suspend":2,"Reboot":3,"Shutdown":4  
+case $? in
+1) exit 0 ;;
+2) sudo pm-suspend ;;
+3) sudo reboot ;;
+4) sudo halt ;;
+esac
