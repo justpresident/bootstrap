@@ -1,0 +1,38 @@
+#!/bin/sh
+#
+# fluxbox startup-script:
+#
+# Lines starting with a '#' are ignored.
+
+source "/home/italiano/.bashrc"
+
+# Change your keymap:
+xmodmap "/home/italiano/.Xmodmap"
+
+# Applications you want to run with fluxbox.
+# MAKE SURE THAT APPS THAT KEEP RUNNING HAVE AN ''&'' AT THE END.
+yakuake &
+nm-applet &
+#$HOME/Dropbox/bootstrap/bin/tidybattery.py &
+BOOTSTRAP_PATH=$(cat $HOME/.bootstrap_path)
+$BOOTSTRAP_PATH/bin/tidybattery.py &
+# unclutter -idle 2 &
+# wmnd &
+# wmsmixer -w &
+# idesk &
+#
+# Debian-local change:
+#   - fbautostart has been added with a quick hack to check to see if it
+#     exists. If it does, we'll start it up by default.
+which fbautostart > /dev/null
+if [ $? -eq 0 ]; then
+    fbautostart
+fi
+
+# And last but not least we start fluxbox.
+# Because it is the last app you have to run it with ''exec'' before it.
+
+fbsetbg -l &
+exec fluxbox
+# or if you want to keep a log:
+# exec fluxbox -log "/home/italiano/.fluxbox/log"

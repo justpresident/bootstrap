@@ -54,7 +54,6 @@ CUR_FILE_PATH=${BASH_ARGV[0]}
 CUR_DIR=`dirname ${BASH_ARGV[0]}`
 CUR_DIR=`readlink -f $CUR_DIR`
 
-
 export PATH=$CUR_DIR/bin:$PATH
 
 source "$CUR_DIR/.bash_aliases"

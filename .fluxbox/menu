@@ -1,0 +1,4 @@
+[begin] (fluxbox)
+[include] (/etc/X11/fluxbox/fluxbox-menu)
+[exec] (I am done) {/home/italiano/Dropbox/bootstrap/bin/i_am_done}
+[end]

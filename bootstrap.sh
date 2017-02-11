@@ -3,6 +3,7 @@
 set -e
 
 DIR=`pwd`
+echo $DIR > $HOME/.bootstrap_path
 
 if [[ `grep $DIR/.bashrc ~/.bashrc` == '' ]]; then
 	echo "if [ -f $DIR/.bashrc ]; then" >> ~/.bashrc
@@ -10,7 +11,7 @@ if [[ `grep $DIR/.bashrc ~/.bashrc` == '' ]]; then
 	echo fi                             >> ~/.bashrc
 fi
 
-for f in .gitconfig .bash_aliases .inputrc .profile .vimrc .vim .my.cnf .tmux.conf .fonts .arduino
+for f in .gitconfig .bash_aliases .inputrc .profile .vimrc .vim .my.cnf .tmux.conf .fonts .arduino .fluxbox
 do
 	rm -rf ~/$f
 	ln -vs $DIR/$f ~/$f
