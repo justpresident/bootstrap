@@ -69,6 +69,8 @@ XF86AudioLowerVolume :Exec amixer -c 2 sset Master 1-
 XF86AudioRaiseVolume :Exec amixer -c 2 sset Master 1+
 XF86AudioMute :Exec amixer -c 2 sset Master toggle
 
+Print :Exec gnome-screenshot -f /tmp/screenshot-`date "+%Y%m%d-%H%M%S"`.jpg
+
 # current window commands
 Mod1 F4 :Close
 Mod1 F5 :Kill
