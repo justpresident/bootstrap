@@ -46,6 +46,10 @@ Mod1 Shift Tab :PrevWindow {groups} (workspace=[current])
 Mod4 Tab :NextTab
 Mod4 Shift Tab :PrevTab
 
+# display configuration
+Control Shift F1 :Exec xrandr --output eDP1 --mode 1366x768 --rotate normal --pos 0x0 --output DP1-2 --off
+Control Shift F2 :Exec xrandr --output eDP1 --mode 1366x768 --rotate normal --pos 0x0 --output DP1-2 --mode 1920x1080 --left-of eDP1 --primary
+
 # go to a specific tab in the current window
 Mod4 1 :Tab 1
 Mod4 2 :Tab 2
@@ -83,6 +87,8 @@ Mod1 space :WindowMenu
 
 # exit fluxbox
 Control Mod1 Delete :Exit
+# lock screen
+Control Mod1 L :Exec i3lock -c 000000
 
 # change to previous/next workspace
 Control Mod1 Left :PrevWorkspace
