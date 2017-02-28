@@ -1,0 +1,36 @@
+[general]
+command =
+
+[empty]
+icon = battery-empty
+charge_icon = battery-empty-charging
+percent = 0
+
+[caution]
+icon = battery-caution
+charge_icon = battery-caution-charging
+percent = 10
+
+[low]
+icon = battery-low
+charge_icon = battery-low-charging
+percent = 20
+
+[fair]
+icon = battery-fair
+charge_icon = battery-fair-charging
+percent = 45
+
+[good]
+icon = battery-good
+charge_icon = battery-good-charging
+percent = 70
+
+[full]
+icon = battery-full
+charge_icon = battery-full-charging
+percent = 95
+
+[full_adapter]
+icon = gnome-power-manager
+percent = 100

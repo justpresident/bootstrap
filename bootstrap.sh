@@ -11,7 +11,7 @@ if [[ `grep $DIR/.bashrc ~/.bashrc` == '' ]]; then
 	echo fi                             >> ~/.bashrc
 fi
 
-for f in .gitconfig .bash_aliases .inputrc .profile .vimrc .vim .my.cnf .tmux.conf .fonts .arduino .fluxbox
+for f in .gitconfig .bash_aliases .inputrc .profile .vimrc .vim .my.cnf .tmux.conf .fonts .arduino .fluxbox .tidybattery
 do
 	rm -rf ~/$f
 	ln -vs $DIR/$f ~/$f
