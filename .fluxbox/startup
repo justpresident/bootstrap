@@ -33,6 +33,7 @@ fi
 # Because it is the last app you have to run it with ''exec'' before it.
 
 fbsetbg -l &
+/usr/bin/dropbox start &
 exec fluxbox
 # or if you want to keep a log:
 # exec fluxbox -log "/home/italiano/.fluxbox/log"
