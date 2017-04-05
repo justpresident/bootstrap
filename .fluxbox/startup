@@ -13,6 +13,7 @@ xmodmap "/home/italiano/.Xmodmap"
 # MAKE SURE THAT APPS THAT KEEP RUNNING HAVE AN ''&'' AT THE END.
 yakuake &
 nm-applet &
+plank &
 #$HOME/Dropbox/bootstrap/bin/tidybattery.py &
 BOOTSTRAP_PATH=$(cat $HOME/.bootstrap_path)
 $BOOTSTRAP_PATH/bin/tidybattery.py &
