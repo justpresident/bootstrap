@@ -65,6 +65,18 @@ function dirdiff {
         <(cd "$dst" && find . | LC_ALL=C sort | sed -e 's/^..//')
 }
 
+function rscreen {
+    SNAME=$1
+    if [[ -z $SNAME ]]; then
+        echo "Open sessions:"
+        screen -list
+        return
+    fi
+
+    screen -D -R -S $SNAME
+}
+
+
 function rtmux {
     SNAME=$1
     if [[ -z $SNAME ]]; then
