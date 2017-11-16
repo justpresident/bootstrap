@@ -8,7 +8,7 @@ chdir
 autodetach on
 
 # Change default scrollback value for new windows
-defscrollback 10000
+defscrollback 100000
 
 # start with visual bell as default
 vbell on
@@ -20,6 +20,7 @@ hardstatus alwayslastline "%-Lw%{= BW}%50>%n%f* %t%{-}%+Lw%<"
 
 activity "Activity in %t(%n)"
 
-shelltitle "shell"
+#shelltitle "shell"
 shell -$SHELL
 
+setenv SSH_AUTH_SOCK $HOME/.ssh/ssh_auth_sock
