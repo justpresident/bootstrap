@@ -3,12 +3,14 @@
 alias ssh='ssh -A'
 
 # command aliases
-alias one_display='xrandr --output eDP1 --mode 1920x1080 --rotate normal --pos 0x0 --output DP1 --off'
-alias two_displays='xrandr --output eDP1 --mode 1920x1080 --rotate normal --pos 0x0 --output DP1 --mode 1600x1200 --left-of eDP1'
-alias one_display_work='xrandr --output eDP1 --mode 1366x768 --rotate normal --pos 0x0 --output DP1-2 --off'
-alias two_displays_work='xrandr --output eDP1 --mode 1366x768 --rotate normal --pos 0x0 --output DP1-2 --mode 1920x1080 --left-of eDP1 --primary'
+alias one_display='xrandr --output eDP1 --mode 1920x1080 --rotate normal --pos 0x0 --output DP-1 --off'
+alias two_displays='xrandr --output eDP1 --mode 1920x1080 --rotate normal --pos 0x0 --output DP-1 --mode 1600x1200 --left-of eDP-1'
+alias one_display_work='xrandr --output eDP-1 --mode 1920x1080 --rotate normal --pos 0x0 --output DVI-I-1-1 --off --output DVI-I-2-2 --off'
+alias two_displays_work='xrandr --output eDP-1 --mode 1920x1080 --rotate normal --pos 0x0 --output DVI-I-1-1 --mode 1920x1080 --right-of eDP-1 --primary --output DVI-I-2-2 --off'
+alias three_displays_work='xrandr --output eDP-1 --mode 1920x1080 --rotate normal --pos 0x0 --primary --output DVI-I-1-1 --mode 1920x1080 --left-of eDP-1 --output DVI-I-2-2 --mode 1920x1080 --right-of eDP-1 --mode 1920x1080'
 alias mplayer_speed_control='mplayer -af scaletempo=stride=30:overlap=.50:search=10'
-alias mplayer_cam='mplayer tv:// -tv driver=v4l2:device=/dev/video0:width=640:height=480:hue=100'
+alias mplayer_cam='mplayer tv:// -tv driver=v4l2:device=/dev/video0:width=640:height=480:hue=0'
+alias telegram='$HOME/apps/Telegram/Telegram'
 
 function save_nethack {
     SAVE_NAME=$1;

@@ -200,5 +200,7 @@ function! Find(...)
 endfunction
 command! -nargs=* Find :call Find(<f-args>)
 
+map <C-/> <C-_> 
+
 syn sync fromstart
 execute pathogen#infect()

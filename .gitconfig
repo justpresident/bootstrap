@@ -1,16 +1,24 @@
 [user]
-	email = roman.studenikin@booking.com
-	name = Roman Studenikin
+    email = roman.studenikin@booking.com
+    name = Roman Studenikin
 [core]
-	editor = vim
+    editor = vim
 [merge]
     tool = vimdiff
     renamelimit = 2567
 
 [alias]
-	st = status
-	unstage = reset HEAD --
-	graph = log --graph --decorate --oneline
-	co = checkout
+    st = status
+    unstage = reset HEAD --
+    graph = log --graph --decorate --oneline
+    co = checkout
 [push]
-	default = simple
+    default = simple
+[filter "lfs"]
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
+    required = true
+
+[url "git@gitlab.booking.com:"]
+    insteadOf = https://gitlab.booking.com/

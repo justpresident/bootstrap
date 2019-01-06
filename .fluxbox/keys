@@ -95,12 +95,12 @@ Control Mod1 L :Exec i3lock -c 000000
 #Control Mod1 Right :NextWorkspace
 
 # send the current window to previous/next workspace
-Mod4 Left :SendToPrevWorkspace
-Mod4 Right :SendToNextWorkspace
+#Mod4 Left :SendToPrevWorkspace
+#Mod4 Right :SendToNextWorkspace
 
 # send the current window and follow it to previous/next workspace
-Control Mod4 Left :TakeToPrevWorkspace
-Control Mod4 Right :TakeToNextWorkspace
+#Control Mod4 Left :TakeToPrevWorkspace
+#Control Mod4 Right :TakeToNextWorkspace
 
 # change to a specific workspace
 Control F1 :Workspace 1
