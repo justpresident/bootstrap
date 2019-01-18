@@ -38,8 +38,8 @@ case $TERM in
 		;;
 esac
 
-PS1="\u@\h [\t]> "
-PS1="$NO_COLOR[\t] ${TITLEBAR}$CYAN\u$NO_COLOR@$DARK_ORANGE\h $NO_COLOR:\w\\$ "
+HOSTNAME=$(if [[ -z $DOCKER_HOSTNAME ]]; then echo "$DARK_ORANGE\\h"; else echo "${RED}docker:$DARK_ORANGE$DOCKER_HOSTNAME"; fi)
+PS1="$NO_COLOR[\t] ${TITLEBAR}$CYAN\u$NO_COLOR@$HOSTNAME $NO_COLOR:\w\\$ "
 PS2='continue-> '
 PS4='$0.$LINENO+ '
 

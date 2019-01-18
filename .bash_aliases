@@ -12,6 +12,19 @@ alias mplayer_speed_control='mplayer -af scaletempo=stride=30:overlap=.50:search
 alias mplayer_cam='mplayer tv:// -tv driver=v4l2:device=/dev/video0:width=640:height=480:hue=0'
 alias telegram='$HOME/apps/Telegram/Telegram'
 
+function d {
+    CONTAINER=$1
+    FORCE_BOOTSTRAP=$2
+
+    bootstrapped=$(docker exec -it $CONTAINER bash -c "if [[ -f /bootstrap.sh ]]; then echo -n 1; fi")
+    if [[ ! -z $FORCE_BOOTSTRAP || -z $bootstrapped ]]; then
+        docker cp Dropbox/bootstrap $CONTAINER:
+        docker exec -it -e UPDATE_FONTS=n $CONTAINER /bootstrap.sh > /dev/null
+    fi
+    docker exec -it -e DOCKER_HOSTNAME=$CONTAINER $CONTAINER bash
+
+}
+
 function save_nethack {
     SAVE_NAME=$1;
     if [[ -z $SAVE_NAME ]]; then
