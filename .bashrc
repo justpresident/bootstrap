@@ -29,19 +29,11 @@ LBLUE="\[\033[0;36m\]"
 WHITE="\[\033[0;37m\]"
 BOLDWHITE="\[\033[0;37m\]"
 
-case $TERM in
-	xterm*|rxvt*)
-		TITLEBAR='\[\033]0;\u@\h:\w\007\]'
-		;;
-	*)
-		TITLEBAR=""
-		;;
-esac
-
-HOSTNAME=$(if [[ -z $DOCKER_HOSTNAME ]]; then echo "$DARK_ORANGE\\h"; else echo "${RED}docker:$DARK_ORANGE$DOCKER_HOSTNAME"; fi)
-PS1="$NO_COLOR[\t] ${TITLEBAR}$CYAN\u$NO_COLOR@$HOSTNAME $NO_COLOR:\w\\$ "
+HN=$(if [[ -z $DOCKER_HOSTNAME ]]; then echo "${DARK_ORANGE}\\h"; else echo "${RED}docker:$DARK_ORANGE$DOCKER_HOSTNAME"; fi)
+PS1="$NO_COLOR[\t] $CYAN\u$NO_COLOR@$HN $NO_COLOR:\w\\$ "
 PS2='continue-> '
 PS4='$0.$LINENO+ '
+unset HN
 
 # Bash cpecific
 HISTSIZE=1000000
