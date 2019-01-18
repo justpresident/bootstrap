@@ -2,7 +2,7 @@
 
 set -e
 
-DIR=`pwd`
+DIR=$(dirname $(readlink -f $0))
 echo $DIR > $HOME/.bootstrap_path
 
 if [[ `grep $DIR/.bashrc ~/.bashrc` == '' ]]; then
@@ -13,8 +13,8 @@ fi
 
 for f in .gitconfig .bash_aliases .inputrc .profile .vimrc .vim .my.cnf .tmux.conf .screenrc .fonts .arduino .fluxbox .tidybattery
 do
-	rm -rf ~/$f
-	ln -vs $DIR/$f ~/$f
+	rm -rf $HOME/$f
+	ln -vs $DIR/$f $HOME/$f
 done
 
 #mkdir -p ~/.ssh/
