@@ -16,10 +16,10 @@ function d {
     CONTAINER=$1
     FORCE_BOOTSTRAP=$2
 
-    bootstrapped=$(docker exec -it $CONTAINER bash -c "if [[ -f /bootstrap.sh ]]; then echo -n 1; fi")
+    bootstrapped=$(docker exec -it $CONTAINER bash -c "if [[ -f /bootstrap/bootstrap.sh ]]; then echo -n 1; fi")
     if [[ ! -z $FORCE_BOOTSTRAP || -z $bootstrapped ]]; then
-        docker cp Dropbox/bootstrap $CONTAINER:
-        docker exec -it -e UPDATE_FONTS=n $CONTAINER /bootstrap.sh > /dev/null
+        docker cp Dropbox/bootstrap $CONTAINER:bootstrap
+        docker exec -it -e UPDATE_FONTS=n $CONTAINER /bootstrap/bootstrap.sh > /dev/null
     fi
     docker exec -it -e DOCKER_HOSTNAME=$CONTAINER $CONTAINER bash
 
