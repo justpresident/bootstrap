@@ -78,7 +78,7 @@ map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 :imap <C-Down> <ESC>mzMjzz`zi<Right>
 
 nnoremap <silent> <A-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
-nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
+nnoremap <silent> <A-Right> :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 
 " easy searching config
 set path=.,,**
