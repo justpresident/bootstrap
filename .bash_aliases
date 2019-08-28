@@ -2,26 +2,46 @@
 # SSH specific: key forwarding
 alias ssh='ssh -A'
 
-MAIN_DISPLAY=eDP-1
-LEFT_DISPLAY=DVI-I-1-1
-RIGHT_DISPLAY=DVI-I-2-2
+export MAIN_DISPLAY=eDP-1
+export LEFT_DISPLAY=DVI-I-1-1
+export RIGHT_DISPLAY=DVI-I-2-2
 
 # command aliases
-alias one_display="xrandr --output $MAIN_DISPLAY --mode 1920x1080 --rotate normal --pos 0x0 --primary"
+off() {
+    xrandr | grep disconnected | FS=' ' awk '{print "--output " $1 " --off"}' | tr "\n" " " | xargs -t xrandr
+}
+function one_display {
+    FILES_PATH=$HOME/Dropbox/bootstrap/bin/files/
+    xrandr --output $MAIN_DISPLAY --mode 1920x1080 --rotate normal --pos 0x0 --primary
+}
 
-alias two_displays="xrandr --output $MAIN_DISPLAY --mode 1920x1080 --rotate normal --pos 0x0 \
-                           --output $LEFT_DISPLAY --mode 1920x1080 --right-of $MAIN_DISPLAY --primary"
+function two_displays {
+    xrandr --output $MAIN_DISPLAY --mode 1920x1080 --rotate normal --pos 0x0 \
+        --output $LEFT_DISPLAY --mode 1920x1080 --right-of $MAIN_DISPLAY --primary
+}
 
-alias three_displays_work="xrandr --output $MAIN_DISPLAY --mode 1920x1080 --rotate normal --pos 0x0 \
-                                  --output $LEFT_DISPLAY --mode 1920x1080 --left-of $MAIN_DISPLAY --primary\
-                                  --output $RIGHT_DISPLAY --mode 1920x1080 --right-of $MAIN_DISPLAY"
+function three_displays_work {
+    xrandr --output $MAIN_DISPLAY --mode 1920x1080 --rotate normal --pos 0x0 \
+        --output $LEFT_DISPLAY --mode 1920x1080 --left-of $MAIN_DISPLAY --primary\
+        --output $RIGHT_DISPLAY --mode 1920x1080 --right-of $MAIN_DISPLAY
+}
 
 alias mplayer_speed_control='mplayer -af scaletempo=stride=30:overlap=.50:search=10'
 alias mplayer_cam='mplayer tv:// -tv driver=v4l2:device=/dev/video0:width=640:height=480:hue=0'
 alias telegram='$HOME/apps/Telegram/Telegram'
 alias workenv="source $HOME/bin/workenv"
 alias homeenv="source $HOME/bin/homeenv"
+alias lsfast="LS_COLORS='ex=00:su=00:sg=00:ca=00:' ls"
+alias java8="export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/"
+alias java11="export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/"
 
+kssh () {
+    kubectl exec -it $(kubectl get po | grep $1 | head -n 1 | cut -f 1 -d' ') bash
+}
+
+klogs () {
+    kubectl logs $(kubectl get po | grep $1 | head -n 1 | cut -f 1 -d' ') ${@:2}
+}
 function d {
     CONTAINER=$1
     FORCE_BOOTSTRAP=$2
