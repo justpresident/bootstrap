@@ -5,16 +5,21 @@ set -e
 DIR=$(dirname $(readlink -f $0))
 echo $DIR > $HOME/.bootstrap_path
 
-if [[ `grep $DIR/.bashrc ~/.bashrc` == '' ]]; then
-	echo "if [ -f $DIR/.bashrc ]; then" >> ~/.bashrc
-	echo "	source '$DIR/.bashrc'"    >> ~/.bashrc
-	echo fi                             >> ~/.bashrc
+echo perl -pi -e "s#$DIR/.bashrc#$DIR/dotfiles/.bashrc#" ~/.bashrc
+perl -pi -e "s#$DIR/.bashrc#$DIR/dotfiles/.bashrc#" ~/.bashrc
+if [[ `grep $DIR/dotfiles/.bashrc ~/.bashrc` == '' ]]; then
+	echo "if [ -f $DIR/dotfiles/.bashrc ]; then" >> ~/.bashrc
+	echo "	source '$DIR/dotfiles/.bashrc'"     >> ~/.bashrc
+	echo fi                                     >> ~/.bashrc
 fi
 
-for f in .gitconfig .bash_aliases .inputrc .profile .vimrc .vim .my.cnf .tmux.conf .screenrc .fonts .arduino .fluxbox .tidybattery
+for f in $(ls -1a $DIR/dotfiles)
 do
+    if [[ $f == "." || $f == ".." || $f == ".bashrc" ]]; then
+        continue
+    fi
 	rm -rf $HOME/$f
-	ln -vs $DIR/$f $HOME/$f
+	ln -vs $DIR/dotfiles/$f $HOME/$f
 done
 
 #mkdir -p ~/.ssh/
