@@ -1,3 +1,0 @@
-* todo
-  - [ ] There must be a config file (~/.tidybattery) setup.  See the README.md for documentation.
-  - [X] sudoers record
