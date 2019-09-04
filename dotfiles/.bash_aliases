@@ -42,6 +42,14 @@ kssh () {
 klogs () {
     kubectl logs $(kubectl get po | grep $1 | head -n 1 | cut -f 1 -d' ') ${@:2}
 }
+
+klogs_all() {
+    pods=$(kubectl get pods | grep $1 | cut -f1 -d' ')
+    for pod in $pods; do
+        kubectl logs $pod ${@:2} | awk "{print \"$pod:\" \$0}"
+    done
+}
+
 function d {
     CONTAINER=$1
     FORCE_BOOTSTRAP=$2
