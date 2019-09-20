@@ -50,6 +50,19 @@ klogs_all() {
     done
 }
 
+function throttle_cpu {
+    pid=$1
+    limit=$2
+
+    group=/sys/fs/cgroup/cpu/throttled$limit
+    if [[ ! -d $group ]]; then
+        sudo mkdir $group
+        echo $(($limit*1000)) | sudo tee $group/cpu.cfs_quota_us
+        echo 100000 | sudo tee $group/cpu.cfs_period_us
+    fi
+    echo $pid | sudo tee $group/cgroup.procs
+}
+
 function d {
     CONTAINER=$1
     FORCE_BOOTSTRAP=$2
@@ -137,6 +150,15 @@ function rtmux {
         echo "Open sessions:"
         tmux list-sessions
         return
+    fi
+
+    if [ -z "$TMUX" ]; then
+        if [ ! -z "$SSH_TTY" ]; then
+            if [ ! -z "$SSH_AUTH_SOCK" ]; then
+                ln -sf "$SSH_AUTH_SOCK" "$HOME/.ssh/auth-sock"
+            fi
+            export SSH_AUTH_SOCK="$HOME/.ssh/auth-sock"
+        fi
     fi
 
     tmux -2 new-session -A -s $SNAME
