@@ -1,6 +1,7 @@
 
 # SSH specific: key forwarding
 alias ssh='ssh -A'
+alias ls='ls --color'
 
 export MAIN_DISPLAY=eDP-1
 export LEFT_DISPLAY=DVI-I-1-1
@@ -16,14 +17,16 @@ function one_display {
 }
 
 function two_displays {
-    xrandr --output $MAIN_DISPLAY --mode 1920x1080 --rotate normal --pos 0x0 \
-        --output $LEFT_DISPLAY --mode 1920x1080 --right-of $MAIN_DISPLAY --primary
+    xrandr \
+        --output $LEFT_DISPLAY --mode 1920x1080 --rotate normal --pos 0x0 --primary \
+        --output $MAIN_DISPLAY --mode 1920x1080 --left-of $LEFT_DISPLAY\
+        --output $RIGHT_DISPLAY --off
 }
 
 function three_displays_work {
-    xrandr --output $MAIN_DISPLAY --mode 1920x1080 --rotate normal --pos 0x0 \
-        --output $LEFT_DISPLAY --mode 1920x1080 --left-of $MAIN_DISPLAY --primary\
-        --output $RIGHT_DISPLAY --mode 1920x1080 --right-of $MAIN_DISPLAY
+    xrandr --output $LEFT_DISPLAY --mode 1920x1080 --rotate normal --pos 0x0 --primary \
+        --output $MAIN_DISPLAY --mode 1920x1080 --left-of $LEFT_DISPLAY \
+        --output $RIGHT_DISPLAY --mode 1920x1080 --right-of $LEFT_DISPLAY
 }
 
 alias mplayer_speed_control='mplayer -af scaletempo=stride=30:overlap=.50:search=10'
@@ -54,12 +57,29 @@ function throttle_cpu {
     pid=$1
     limit=$2
 
+    if [[ -z $pid ]]; then
+        ps -e o pid,user,pcpu,pmem,comm,nwchan,wchan --sort %cpu | head -n1
+        ps -e o pid,user,pcpu,pmem,comm,nwchan,wchan --sort %cpu | tail -n1
+        pid=$(ps -e o pid --sort %cpu | tail -n1)
+    else
+        ps --pid $pid o pid,user,pcpu,pmem,comm,nwchan,wchan
+    fi
+    if [[ -z $limit ]]; then limit=1;fi
+
+    read -p "Throttle process $pid with ${limit}% cpu? (y/n) > " answer
+    if [[ $answer != "y" ]]; then
+        echo "aborted"
+        return
+    fi
+
+    set -x
     group=/sys/fs/cgroup/cpu/throttled$limit
-    if [[ ! -d $group ]]; then
+    #if [[ ! -d $group ]]; then
         sudo mkdir $group
         echo $(($limit*1000)) | sudo tee $group/cpu.cfs_quota_us
         echo 100000 | sudo tee $group/cpu.cfs_period_us
-    fi
+    #fi
+    set +x
     echo $pid | sudo tee $group/cgroup.procs
 }
 
