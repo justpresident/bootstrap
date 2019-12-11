@@ -17,14 +17,28 @@ fi
 # dotfiles
 for f in $(ls -1a $DIR/dotfiles)
 do
-    if [[ $f == "." || $f == ".." || $f == ".bashrc" ]]; then
+    if [[ $f == "." || $f == ".." || $f == ".bashrc" || $f == ".config" ]]; then
         continue
     fi
     rm -rf $HOME/$f
     ln -vs $DIR/dotfiles/$f $HOME/$f
 done
 
+# .config/*
+if [[ ! -d $HOME/.config ]]; then
+    mkdir $HOME/.config
+fi
+for f in $(ls -1a $DIR/dotfiles/.config)
+do
+    if [[ $f == "." || $f == ".." ]]; then
+        continue
+    fi
+    rm -rf $HOME/.config/$f
+    ln -vs $DIR/dotfiles/.config/$f $HOME/.config/$f
+done
 
+
+# bootstrap.d
 for script in $(ls -1 $DIR/bootstrap.d/); do
     . $DIR/bootstrap.d/$script
 done
