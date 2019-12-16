@@ -53,6 +53,22 @@ klogs_all() {
     done
 }
 
+function graphite_produce_increasing_metric {
+    SERVER=$1
+    PORT=$2
+    METRIC=$3
+
+    VAL=$((RANDOM % 100))
+    while [[ true ]]; do
+        date
+        GRAPHITE_DATAPOINT="$METRIC $VAL `date +%s`"
+        echo $GRAPHITE_DATAPOINT
+        echo $GRAPHITE_DATAPOINT | nc -N ${SERVER} ${PORT}
+        ((VAL += RANDOM % 100))
+        sleep $((RANDOM % 10))
+    done
+}
+
 function throttle_cpu {
     pid=$1
     limit=$2
