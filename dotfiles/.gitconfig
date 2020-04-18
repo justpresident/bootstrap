@@ -1,5 +1,5 @@
 [user]
-    email = roman.studenikin@booking.com
+    email = srv@fb.com
     name = Roman Studenikin
 [core]
     editor = vim
@@ -25,3 +25,5 @@
 
 [url "https://github.com/"]
 	insteadOf = git://github.com/
+[rerere]
+	enabled = true
