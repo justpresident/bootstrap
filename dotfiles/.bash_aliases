@@ -1,33 +1,40 @@
 
 # SSH specific: key forwarding
 alias ssh='ssh -A'
-alias ls='ls --color'
-
+if [[ $OSTYPE =~ darwin* ]]; then
+    alias ls='ls -G'
+else
+    alias ls='ls --color'
+fi
 export MAIN_DISPLAY=eDP-1
-export LEFT_DISPLAY=DVI-I-1-1
-export RIGHT_DISPLAY=DVI-I-2-2
+# export MAIN_DISPLAY_RES=3840x2160
+export MAIN_DISPLAY_RES=2560x1440
+# export LEFT_DISPLAY=DVI-I-1-1
+export EXT_LEFT_DISPLAY=DP-1
+export EXT_LEFT_DISPLAY_RES=$MAIN_DISPLAY_RES
 
 # command aliases
 off() {
     xrandr | grep disconnected | FS=' ' awk '{print "--output " $1 " --off"}' | tr "\n" " " | xargs -t xrandr
 }
 function one_display {
-    FILES_PATH=$HOME/Dropbox/bootstrap/bin/files/
-    xrandr --output $MAIN_DISPLAY --mode 1920x1080 --rotate normal --pos 0x0 --primary
+    xrandr --output $MAIN_DISPLAY --mode $MAIN_DISPLAY_RES --rotate normal --pos 0x0 --primary
+}
+function ext_display {
+    xrandr --output $EXT_LEFT_DISPLAY --mode $EXT_LEFT_DISPLAY_RES --rotate normal --pos 0x0 --primary --output $MAIN_DISPLAY --off
 }
 
 function two_displays {
     xrandr \
-        --output $LEFT_DISPLAY --mode 1920x1080 --rotate normal --pos 0x0 --primary \
-        --output $MAIN_DISPLAY --mode 1920x1080 --left-of $LEFT_DISPLAY\
-        --output $RIGHT_DISPLAY --off
+        --output $EXT_LEFT_DISPLAY --mode $EXT_LEFT_DISPLAY_RES --rotate normal --pos 0x0 --primary \
+        --output $MAIN_DISPLAY --mode $MAIN_DISPLAY_RES --right-of $EXT_LEFT_DISPLAY
 }
 
-function three_displays_work {
-    xrandr --output $LEFT_DISPLAY --mode 1920x1080 --rotate normal --pos 0x0 --primary \
-        --output $MAIN_DISPLAY --mode 1920x1080 --left-of $LEFT_DISPLAY \
-        --output $RIGHT_DISPLAY --mode 1920x1080 --right-of $LEFT_DISPLAY
-}
+# function three_displays_work {
+#     xrandr --output $LEFT_DISPLAY --mode 1920x1080 --rotate normal --pos 0x0 --primary \
+#         --output $MAIN_DISPLAY --mode 1920x1080 --left-of $LEFT_DISPLAY \
+#         --output $RIGHT_DISPLAY --mode 1920x1080 --right-of $LEFT_DISPLAY
+# }
 
 alias mplayer_speed_control='mplayer -af scaletempo=stride=30:overlap=.50:search=10'
 alias mplayer_cam='mplayer tv:// -tv driver=v4l2:device=/dev/video0:width=640:height=480:hue=0'

@@ -43,8 +43,16 @@ HISTFILESIZE=20000000
 # includes
 CUR_FILE_PATH=${BASH_ARGV[0]}
 
-CUR_DIR=`dirname ${BASH_ARGV[0]}`
-CUR_DIR=`readlink -f $CUR_DIR`
+if [[ $OSTYPE =~ darwin* ]]; then
+    READLINK=$(which greadlink)
+else
+    READLINK=$(which readlink)
+fi
+if [[ -z $READLINK ]]; then
+    echo "Failed to find readlink tool"
+fi
+CUR_DIR=$(dirname ${BASH_ARGV[0]})
+CUR_DIR=$($READLINK -f $CUR_DIR)
 
 export PATH=$CUR_DIR/bin:$PATH
 

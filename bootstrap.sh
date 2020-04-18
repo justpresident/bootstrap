@@ -2,7 +2,16 @@
 
 set -e
 
-export DIR=$(dirname $(readlink -f $0))
+if [[ $OSTYPE =~ darwin* ]]; then
+    READLINK=$(which greadlink)
+else
+    READLINK=$(which readlink)
+fi
+if [[ -z $READLINK ]]; then
+    echo "Failed to find readlink tool"
+fi
+
+export DIR=$(dirname $($READLINK -f $0))
 echo $DIR > $HOME/.bootstrap_path
 
 # bashrc
