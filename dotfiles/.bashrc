@@ -29,6 +29,12 @@ LBLUE="\[\033[0;36m\]"
 WHITE="\[\033[0;37m\]"
 BOLDWHITE="\[\033[0;37m\]"
 
+# this is how it should look like on servers:
+#   [23:06:12] srv@srv-fedora-PF22711J :WHITE$
+#   {WHITE} {CYAN}@{DARK_ORANGE} :WHITE$
+# this is how it should look like in containers:
+#   [00:28:12] root@docker:7aa246ac9744 :/#
+#   {WHITE} {CYAN}@{RED}:{DARK_ORANGE} :WHITE#
 HN=$(if [[ -z $DOCKER_HOSTNAME ]]; then echo "${DARK_ORANGE}\\h"; else echo "${RED}docker:$DARK_ORANGE$DOCKER_HOSTNAME"; fi)
 PS1="$NO_COLOR[\t] $CYAN\u$NO_COLOR@$HN $NO_COLOR:\w\\$ "
 PS2='continue-> '
@@ -51,9 +57,12 @@ fi
 if [[ -z $READLINK ]]; then
     echo "Failed to find readlink tool"
 fi
-CUR_DIR=$(dirname ${BASH_ARGV[0]})
-CUR_DIR=$($READLINK -f $CUR_DIR)
 
-export PATH=$CUR_DIR/bin:$PATH
+export DOTFILES_DIR=$(dirname ${BASH_ARGV[0]})
+export DOTFILES_DIR=$($READLINK -f $DOTFILES_DIR)
 
-source "$CUR_DIR/.bash_aliases"
+# This variable can be used in bash scripts. Useful for tools in bin folder
+export BOOTSTRAP_DIR=$(dirname $DOTFILES_DIR)
+export PATH=$BOOTSTRAP_DIR/bin:$PATH
+
+source "$DOTFILES_DIR/.bash_aliases"

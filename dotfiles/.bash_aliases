@@ -42,8 +42,8 @@ alias telegram='$HOME/apps/Telegram/Telegram'
 alias workenv="source $HOME/bin/workenv"
 alias homeenv="source $HOME/bin/homeenv"
 alias lsfast="LS_COLORS='ex=00:su=00:sg=00:ca=00:' ls"
-alias java8="export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/"
-alias java11="export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64/"
+alias java8="export JAVA_HOME=/usr/lib/jvm/java-1.8.0/"
+alias java11="export JAVA_HOME=/usr/lib/jvm/java-11/"
 
 kssh () {
     kubectl exec -it $(kubectl get po | grep $1 | head -n 1 | cut -f 1 -d' ') bash

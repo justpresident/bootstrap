@@ -12,7 +12,7 @@ if [[ -z $READLINK ]]; then
 fi
 
 export DIR=$(dirname $($READLINK -f $0))
-echo $DIR > $HOME/.bootstrap_path
+echo -n $DIR > $HOME/.bootstrap_path
 
 # bashrc
 echo perl -pi -e "s#$DIR/.bashrc#$DIR/dotfiles/.bashrc#" ~/.bashrc

@@ -27,3 +27,5 @@
 	insteadOf = git://github.com/
 [rerere]
 	enabled = true
+[http]
+	postBuffer = 524288000

@@ -69,6 +69,14 @@ e ++enc=utf8
 endfunction
 command Utf8 call Utf8()
 
+function ReloadTab()
+    let tabpos = tabpagenr()
+    execute 'silent! quit'
+    execute 'silent! tab ball'
+    execute 'silent! tabmove ' . (tabpos-1)
+endfunction
+command ReloadTab call ReloadTab()
+
 map <C-a> <esc>ggVG<CR>
 map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
