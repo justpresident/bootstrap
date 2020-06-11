@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+LOG_TM=${LOG_TM:-$(date)}
+LOG_FILE=${LOG_FILE:-$HOME/Dropbox/log}
+LOG_DATA=${LOG_DATA:-$(echo -n $@)}
+
+if [[ -n $LOG_DATA ]]; then
+    echo -e "\n$LOG_TM\t$LOG_DATA" >> $LOG_FILE
+fi

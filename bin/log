@@ -1,0 +1,7 @@
+#!/bin/bash
+set -ex
+
+export LOG_DATA=${LOG_DATA:-$(echo -n $@)}
+
+BOOTSTRAP_DIR=$(cat $HOME/.bootstrap_path)
+$($BOOTSTRAP_DIR/bin/_log_func)
