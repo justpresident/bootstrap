@@ -6,12 +6,12 @@ if [[ $OSTYPE =~ darwin* ]]; then
 else
     alias ls='ls --color'
 fi
-export MAIN_DISPLAY=eDP-1
-# export MAIN_DISPLAY_RES=3840x2160
-export MAIN_DISPLAY_RES=2560x1440
-# export LEFT_DISPLAY=DVI-I-1-1
-export EXT_LEFT_DISPLAY=DP-1
-export EXT_LEFT_DISPLAY_RES=$MAIN_DISPLAY_RES
+
+# correct values are in ~/.bashrc, these are just defaults
+export MAIN_DISPLAY=${MAIN_DISPLAY:-eDP-1}
+export MAIN_DISPLAY_RES=${MAIN_DISPLAY_RES:-2560x1440}
+export EXT_LEFT_DISPLAY=${EXT_LEFT_DISPLAY:-DP-1}
+export EXT_LEFT_DISPLAY_RES=${EXT_LEFT_DISPLAY_RES:-2560x1440}
 
 # command aliases
 off() {

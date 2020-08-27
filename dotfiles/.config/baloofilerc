@@ -5,5 +5,5 @@ Indexing-Enabled=false
 dbVersion=2
 exclude filters=.bzr,*.fasta,CMakeTmp,autom4te,.git,.obj,node_packages,*.m4,__pycache__,.svn,*.po,ui_*.h,*.orig,*.fastq,conftest,*.gb,*.nvram,.histfile.*,*.vdi,CMakeFiles,CTestTestfile.cmake,Makefile.am,*.fna,*.vm*,*.vbox*,*.sql.gz,qrc_*.cpp,.yarn-cache,*.gmo,*.init,*.sql,vbox.log,nbproject,*.class,*.part,*.pc,.npm,*.vhd,*.fq,*.rcore,*.lo,config.status,*.map,moc_*.cpp,po,*.elc,.moc,.pch,.uic,libtool,confstat,core-dumps,*.omf,CMakeCache.txt,*.moc,node_modules,*.db,*.ini,*.vmdk,*.aux,*.so,litmain.sh,*.vhdx,CVS,*.qcow2,*~,*.pyo,*.rej,*.faa,CMakeTmpQmake,lzo,*.csproj,*.o,*.gcode,.hg,.xsession-errors*,*.pyc,*.qrc,_darcs,cmake_install.cmake,*.qmlc,.yarn,lost+found,*.gbff,*.jsc,*.loT,confdefs.h,*.swap,*.a,*.tmp,*.img,*.la
 exclude filters version=5
-first run=true
+first run=false
 folders[$e]=$HOME/

@@ -12,8 +12,8 @@ set nolist                        " show invisible characters
 filetype plugin indent on
 syntax on
 
-au BufNewFile,BufRead *.py set filetype=python
-autocmd BufEnter *.py set ai sw=4 ts=4 sta et fo=croql softtabstop=4 list
+au BufNewFile,BufRead *.py set filetype=python nolist
+autocmd BufEnter *.py set ai sw=4 ts=4 sta et fo=croql softtabstop=4 nolist
 autocmd BufEnter  *.pl,*.pm set list
 autocmd BufEnter  *.go set nolist
 autocmd BufNewFile,BufRead *.tt set ft=html
