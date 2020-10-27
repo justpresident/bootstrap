@@ -5,9 +5,6 @@
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 
-shopt -s histappend
-PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
-
 # set Language and messages
 export LC_ALL=en_US.UTF8
 
@@ -44,6 +41,11 @@ unset HN
 # Bash cpecific
 HISTSIZE=1000000
 HISTFILESIZE=20000000
+HISTCONTROL=ignoreboth:erasedups
+shopt -s histappend # append the history at exit, not replace it
+# HISTTIMEFORMAT=''       # Save the timestamp, but don't output it
+HISTTIMEFORMAT='%F_%T '
+PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
 
 # includes

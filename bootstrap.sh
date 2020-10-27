@@ -15,18 +15,23 @@ export DIR=$(dirname $($READLINK -f $0))
 echo -n $DIR > $HOME/.bootstrap_path
 
 # bashrc
-echo perl -pi -e "s#$DIR/.bashrc#$DIR/dotfiles/.bashrc#" ~/.bashrc
 perl -pi -e "s#$DIR/.bashrc#$DIR/dotfiles/.bashrc#" ~/.bashrc
 if [[ `grep $DIR/dotfiles/.bashrc ~/.bashrc` == '' ]]; then
     echo "if [ -f $DIR/dotfiles/.bashrc ]; then" >> ~/.bashrc
     echo "  source '$DIR/dotfiles/.bashrc'"     >> ~/.bashrc
     echo fi                                     >> ~/.bashrc
 fi
+touch ~/.bash_logout
+if [[ `grep $DIR/dotfiles/.bash_logout ~/.bash_logout` == '' ]]; then
+    echo "if [ -f $DIR/dotfiles/.bash_logout ]; then" >> ~/.bash_logout
+    echo "  source '$DIR/dotfiles/.bash_logout'"      >> ~/.bash_logout
+    echo fi                                           >> ~/.bash_logout
+fi
 
 # dotfiles
 for f in $(ls -1a $DIR/dotfiles)
 do
-    if [[ $f == "." || $f == ".." || $f == ".bashrc" || $f == ".config" ]]; then
+    if [[ $f == "." || $f == ".." || $f == ".bashrc" || $f == ".bash_logout" || $f == ".config" ]]; then
         continue
     fi
     rm -rf $HOME/$f

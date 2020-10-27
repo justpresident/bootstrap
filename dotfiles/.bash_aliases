@@ -1,3 +1,6 @@
+h()  { history 30; }                           # last few history commands
+ht() { HISTTIMEFORMAT='%F_%T  ' history 30; }  # history with time stamps
+hc() { source $BOOTSTRAP_DIR/bin/history_merge.bash; }      # merge & clean history
 
 # SSH specific: key forwarding
 alias ssh='ssh -A'
@@ -22,6 +25,17 @@ function one_display {
 }
 function ext_display {
     xrandr --output $EXT_LEFT_DISPLAY --mode $EXT_LEFT_DISPLAY_RES --rotate normal --pos 0x0 --primary --output $MAIN_DISPLAY --off
+}
+
+function displays1600x1200 {
+    xrandr \
+        --output $EXT_LEFT_DISPLAY --mode 1600x1200 --rotate normal --pos 0x0 --primary \
+        --output $MAIN_DISPLAY --mode 1600x1200 --right-of $EXT_LEFT_DISPLAY
+}
+function displays1920x1080 {
+    xrandr \
+        --output $EXT_LEFT_DISPLAY --mode 1920x1080 --rotate normal --pos 0x0 --primary \
+        --output $MAIN_DISPLAY --mode 1920x1080 --right-of $EXT_LEFT_DISPLAY
 }
 
 function two_displays {
