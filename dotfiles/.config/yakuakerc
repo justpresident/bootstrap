@@ -29,4 +29,5 @@ DynamicTabTitles=true
 Height=100
 KeepAbove=false
 ShowOnAllDesktops=false
+ShowSystrayIcon=false
 Width=100

@@ -86,7 +86,7 @@ if [[ -e "$HISTFILE" ]]; then
       # Optional Code  -- Remove specific commands from history
       #
       # Remove specific commands from history
-      next if $command =~ /^(ls|ll|cd|top|htop|cat|less)\b/;          # general
+      next if $command =~ /^(ls|ll|cd|ps|top|htop|cat|less)\b/;          # general
       next if $command =~ /^(history|h|h[trwdce])\b/; # history
 
 
@@ -96,7 +96,6 @@ if [[ -e "$HISTFILE" ]]; then
       # This is recommended when merging two or more history sources.
       #
       if ( $old = $time{$command} ) {
-        printf STDERR "found duplocate $command\n";
         if ( $time > $old ) {
           # newer command has an older duplicate - remove it
           @{ $history{$old} } = grep { $_ ne $command } @{ $history{$old} }
@@ -105,7 +104,6 @@ if [[ -e "$HISTFILE" ]]; then
           next;
         }
       }
-      printf STDERR "new command: $time $command\n";
       push @{ $history{$time} }, $command;  # push line into timestamp
       $time{$command} = $time;              # where to find if duplicated
     }
