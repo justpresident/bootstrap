@@ -15,7 +15,7 @@ syntax on
 au BufNewFile,BufRead *.py,*.cconf,*.cinc set filetype=python
 autocmd BufEnter *.py set ai sw=4 ts=4 sta et fo=croql softtabstop=4
 autocmd BufNewFile,BufRead *.tt set ft=html
-
+autocmd BufNewFile,BufRead *.txt set tw=140 fo+=a " automatic line split
 set nu
 set wrap
 set autoindent
@@ -135,6 +135,7 @@ let g:airline_theme='ubaryd'
 
 function! AirlineInit()
     let g:airline_section_a = airline#section#create(['mode', ' ', 'branch'])
+    au BufEnter,BufNewFile,BufRead * AirlineRefresh
 endfunction
 
 colorscheme italiano
