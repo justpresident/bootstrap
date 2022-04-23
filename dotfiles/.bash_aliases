@@ -53,11 +53,17 @@ function two_displays {
 alias mplayer_speed_control='mplayer -af scaletempo=stride=30:overlap=.50:search=10'
 alias mplayer_cam='mplayer tv:// -tv driver=v4l2:device=/dev/video0:width=640:height=480:hue=0'
 alias telegram='$HOME/apps/Telegram/Telegram'
+alias ue='$HOME/apps/UnrealEngine-release/Engine/Binaries/Linux/UE4Editor'
 alias workenv="source $HOME/bin/workenv"
 alias homeenv="source $HOME/bin/homeenv"
 alias lsfast="LS_COLORS='ex=00:su=00:sg=00:ca=00:' ls"
 alias java8="export JAVA_HOME=/usr/lib/jvm/java-1.8.0/"
 alias java11="export JAVA_HOME=/usr/lib/jvm/java-11/"
+alias pron="perl -d $HOME/Dropbox/cypher.pl $HOME/Dropbox/pron"
+alias hpet_disable='grubby --args "hpet=disable" --update-kernel=ALL'
+
+alias vcamera_load="sudo modprobe v4l2loopback exclusive_caps=1 card_label=External"
+alias vcamera_feed="gphoto2 --stdout --capture-movie | ffmpeg -i - -vcodec rawvideo -pix_fmt yuv420p -threads 8 -f v4l2 /dev/video2"
 
 kssh () {
     kubectl exec -it $(kubectl get po | grep $1 | head -n 1 | cut -f 1 -d' ') bash
@@ -258,4 +264,13 @@ alias bootstrap_cmd='echo "git clone https://github.com/justpresident/bootstrap.
 
 function bootstrap_host {
 	ssh -A $@ 'if [[ $(dpkg -l | cut -f1,3 -d" " | grep "ii git") == "" ]]; then sudo apt-get --yes --force-yes install git; fi; git clone https://github.com/justpresident/bootstrap.git; cd bootstrap; ./bootstrap.sh'
+}
+
+function static_img_video {
+    if [[ -z $1 || -z $2 || -z $3 ]]; then
+        echo "converts mp3 to video with a static image"
+        echo "Usage: static_img_video image.jpg audio.mp3 out.mp4";
+        return;
+    fi
+    ffmpeg -loop 1 -i $1 -i $2 -c:a copy -c:v libx264 -shortest $3
 }

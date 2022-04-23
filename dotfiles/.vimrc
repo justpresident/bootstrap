@@ -13,9 +13,8 @@ filetype plugin indent on
 syntax on
 
 au BufNewFile,BufRead *.py,*.cconf,*.cinc set filetype=python
-autocmd BufEnter *.py set ai sw=4 ts=4 sta et fo=croql softtabstop=4
+autocmd BufEnter *.py set ai sw=4 ts=4 smarttab expandtab fo=croql softtabstop=4
 autocmd BufNewFile,BufRead *.tt set ft=html
-autocmd BufNewFile,BufRead *.txt set tw=140 fo+=a " automatic line split
 set nu
 set wrap
 set autoindent
@@ -45,6 +44,11 @@ set backspace=2
 set background=light
 
 set swapsync=
+
+function Diary()
+    set textwidth=140 formatoptions+=a " automatic line split
+endfunction
+command Diary call Diary()
 
 function Diff()
 w! %_vimdiff

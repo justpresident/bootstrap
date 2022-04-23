@@ -5,6 +5,8 @@
 export EDITOR=/usr/bin/vim
 export VISUAL=/usr/bin/vim
 
+export LESS="-IR --follow-name"
+
 # set Language and messages
 export LC_ALL=en_US.UTF8
 
