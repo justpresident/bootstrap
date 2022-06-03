@@ -26,7 +26,7 @@ previous-session=Shift+Left
 
 [Window]
 DynamicTabTitles=true
-Height=100
+Height=45
 KeepAbove=false
 ShowOnAllDesktops=false
 ShowSystrayIcon=false

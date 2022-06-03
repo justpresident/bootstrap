@@ -5,7 +5,7 @@ export DISPLAY=:0
 
 export LOG_TM=$(date)
 export LOG_FILE=${LOG_FILE:-$HOME/Dropbox/log}
-export LOG_DATA=$(kdialog  --title "Work logger" \
+export LOG_DATA=$(kdialog  --title "Home logger" \
                     --geometry 800x400 \
                     --textinputbox "Logging into $LOG_FILE\nWhat are you doing at $LOG_TM?" \
                     "")

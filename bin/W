@@ -1,0 +1,13 @@
+#!/bin/bash
+set -ex
+
+export DISPLAY=:0
+
+export LOG_TM=$(date)
+export LOG_FILE=${LOG_FILE:-$HOME/Dropbox/work_log}
+export LOG_DATA=$(kdialog  --title "Work logger" \
+                    --geometry 800x400 \
+                    --textinputbox "Logging into $LOG_FILE\nWhat are you doing at $LOG_TM?" \
+                    "")
+BOOTSTRAP_DIR=$(cat $HOME/.bootstrap_path)
+$($BOOTSTRAP_DIR/bin/_log_func)
