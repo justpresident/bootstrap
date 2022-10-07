@@ -2,11 +2,14 @@
 Frames=0
 UseWMAssist=false
 
+[Appearance]
+Translucency=true
+
 [Behavior]
 RememberFullscreen=true
 
 [Desktop Entry]
-DefaultProfile=Profile 1.profile
+DefaultProfile=DonCarleone.profile
 
 [Dialogs]
 FirstRun=false
@@ -15,7 +18,9 @@ FirstRun=false
 Favorites=
 
 [KFileDialog Settings]
-detailViewIconSize=0
+Recent Files[$e]=don_carleone_edit_1920x1080.jpg,file:$HOME/Dropbox/images/don_carleone_edit_1920x1080.jpg,file:$HOME/Dropbox/Photos/don_carleone_edit_1920x1080.jpg
+Recent URLs[$e]=file:$HOME/Dropbox/Photos/,file:$HOME/Dropbox/images/,file:$HOME/
+detailViewIconSize=16
 
 [Shortcuts]
 grow-terminal-left=none

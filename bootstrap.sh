@@ -28,17 +28,17 @@ if [[ `grep $DIR/dotfiles/.bash_logout ~/.bash_logout` == '' ]]; then
     echo fi                                           >> ~/.bash_logout
 fi
 
-# dotfiles
+# link all dotfiles in $HOME
 for f in $(ls -1a $DIR/dotfiles)
 do
-    if [[ $f == "." || $f == ".." || $f == ".bashrc" || $f == ".bash_logout" || $f == ".config" ]]; then
+    if [[ $f == "." || $f == ".." || $f == ".bashrc" || $f == ".bash_logout" || $f == ".config" || $f == ".local" ]]; then
         continue
     fi
     rm -rf $HOME/$f
     ln -vs $DIR/dotfiles/$f $HOME/$f
 done
 
-# .config/*
+# link all subfolders in $HOME/.config/*
 if [[ ! -d $HOME/.config ]]; then
     mkdir $HOME/.config
 fi
@@ -51,6 +51,18 @@ do
     ln -vs $DIR/dotfiles/.config/$f $HOME/.config/$f
 done
 
+# link all subfolders in $HOME/.local/share/*
+if [[ ! -d $HOME/.local/share ]]; then
+    mkdir -p $HOME/.local/share
+fi
+for f in $(ls -1a $DIR/dotfiles/.local/share)
+do
+    if [[ $f == "." || $f == ".." ]]; then
+        continue
+    fi
+    rm -rf $HOME/.local/share/$f
+    ln -vs $DIR/dotfiles/.local/share/$f $HOME/.local/share/$f
+done
 
 # bootstrap.d
 for script in $(ls -1 $DIR/bootstrap.d/); do
