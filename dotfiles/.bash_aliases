@@ -11,9 +11,9 @@ else
 fi
 
 # correct values are in ~/.bashrc, these are just defaults
-export MAIN_DISPLAY=${MAIN_DISPLAY:-eDP-1}
-export MAIN_DISPLAY_RES=${MAIN_DISPLAY_RES:-2560x1440}
-export EXT_LEFT_DISPLAY=${EXT_LEFT_DISPLAY:-DP-1}
+export MAIN_DISPLAY=$(xrandr --listactivemonitors | grep '0:' 2>&1 | awk '{ print $4; }')
+export MAIN_DISPLAY_RES=${MAIN_DISPLAY_RES:-1920x1080}
+export EXT_LEFT_DISPLAY=$(xrandr --listactivemonitors | grep '1:' 2>&1 | awk '{ print $4; }')
 export EXT_LEFT_DISPLAY_RES=${EXT_LEFT_DISPLAY_RES:-2560x1440}
 
 # command aliases
@@ -275,3 +275,23 @@ function static_img_video {
     fi
     ffmpeg -loop 1 -i $1 -i $2 -c:a copy -c:v libx264 -shortest $3
 }
+
+function video_duration {
+    if [[ -z $1 ]]; then
+        echo "Get video duration in seconds";
+        echo "Usage: video_duration video.mp4"
+        return;
+    fi
+    ffprobe -i $1 -v quiet -show_entries format=duration -hide_banner
+}
+
+function video_reencode {
+    if [[ -z $1 || -z $2 ]]; then
+        echo "Encodes video using VP9 and audio using libvorbis"
+        echo "Usage: video_reencode video.in video.out";
+        echo "More info at https://opensource.com/article/17/6/ffmpeg-convert-media-file-formats";
+        return;
+    fi
+    ffmpeg -i $1 -c:v vp9 -c:a libvorbis $2
+}
+
