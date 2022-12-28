@@ -39,9 +39,14 @@ function displays1920x1080 {
 }
 
 function two_displays {
-    xrandr \
+    RES=$(xrandr \
         --output $EXT_LEFT_DISPLAY --mode $EXT_LEFT_DISPLAY_RES --rotate normal --pos 0x0 --primary \
-        --output $MAIN_DISPLAY --mode $MAIN_DISPLAY_RES --right-of $EXT_LEFT_DISPLAY
+        --output $MAIN_DISPLAY --mode $MAIN_DISPLAY_RES --right-of $EXT_LEFT_DISPLAY 2>&1)
+    if [[ $RES ]]; then
+        xrandr \
+            --output $MAIN_DISPLAY --mode $EXT_LEFT_DISPLAY_RES --rotate normal --pos 0x0 --primary \
+            --output $EXT_LEFT_DISPLAY --mode $MAIN_DISPLAY_RES --right-of $MAIN_DISPLAY
+    fi
 }
 
 # function three_displays_work {
