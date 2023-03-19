@@ -65,9 +65,11 @@ do
 done
 
 # bootstrap.d
+pushd $DIR
 for script in $(ls -1 $DIR/bootstrap.d/); do
     . $DIR/bootstrap.d/$script
 done
+popd
 
 # fonts
 if [[ -z $UPDATE_FONTS ]]; then
@@ -80,9 +82,9 @@ if [[ -n $UPDATE_FONTS && $UPDATE_FONTS == 'y' ]]; then
 
     echo "enabling bitmapped fonts in console..."
     sudo rm -f /etc/fonts/conf.d/70-no-bitmaps.conf
-    sudo cp $DIR/50-enable-fixed.conf /etc/fonts/conf.d/
+    sudo cp $DIR/files/fontconfig/50-enable-fixed.conf /etc/fonts/conf.d/
     mkdir -p ~/.config/fontconfig/conf.d/
-    cp $DIR/10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
+    cp $DIR/files/fontconfig/10-powerline-symbols.conf ~/.config/fontconfig/conf.d/
     sudo dpkg-reconfigure fontconfig
 fi
 
