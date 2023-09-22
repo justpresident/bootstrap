@@ -10,35 +10,39 @@ else
     alias ls='ls --color'
 fi
 
-# correct values are in ~/.bashrc, these are just defaults
-export MAIN_DISPLAY=$(xrandr --listactivemonitors | grep '0:' 2>&1 | awk '{ print $4; }')
-export MAIN_DISPLAY_RES=${MAIN_DISPLAY_RES:-1920x1080}
-export EXT_LEFT_DISPLAY=$(xrandr --listactivemonitors | grep '1:' 2>&1 | awk '{ print $4; }')
-export EXT_LEFT_DISPLAY_RES=${EXT_LEFT_DISPLAY_RES:-2560x1440}
+function discover_displays {
+    xrandr --auto
+    export MAIN_DISPLAY=$(xrandr --listactivemonitors | grep '0:' 2>&1 | awk '{ print $4; }')
+    export MAIN_DISPLAY_RES=${MAIN_DISPLAY_RES:-1920x1080}
+    export EXT_LEFT_DISPLAY=$(xrandr --listactivemonitors | grep '1:' 2>&1 | awk '{ print $4; }')
+    export EXT_LEFT_DISPLAY_RES=${EXT_LEFT_DISPLAY_RES:-2560x1440}
+}
 
 # command aliases
-off() {
-    xrandr | grep disconnected | FS=' ' awk '{print "--output " $1 " --off"}' | tr "\n" " " | xargs -t xrandr
-}
 function one_display {
+    discover_displays
     xrandr --output $MAIN_DISPLAY --mode $MAIN_DISPLAY_RES --rotate normal --pos 0x0 --primary
 }
 function ext_display {
+    discover_displays
     xrandr --output $EXT_LEFT_DISPLAY --mode $EXT_LEFT_DISPLAY_RES --rotate normal --pos 0x0 --primary --output $MAIN_DISPLAY --off
 }
 
 function displays1600x1200 {
+    discover_displays
     xrandr \
         --output $EXT_LEFT_DISPLAY --mode 1600x1200 --rotate normal --pos 0x0 --primary \
         --output $MAIN_DISPLAY --mode 1600x1200 --right-of $EXT_LEFT_DISPLAY
 }
 function displays1920x1080 {
+    discover_displays
     xrandr \
         --output $EXT_LEFT_DISPLAY --mode 1920x1080 --rotate normal --pos 0x0 --primary \
         --output $MAIN_DISPLAY --mode 1920x1080 --right-of $EXT_LEFT_DISPLAY
 }
 
 function two_displays {
+    discover_displays
     RES=$(xrandr \
         --output $EXT_LEFT_DISPLAY --mode $EXT_LEFT_DISPLAY_RES --rotate normal --pos 0x0 --primary \
         --output $MAIN_DISPLAY --mode $MAIN_DISPLAY_RES --right-of $EXT_LEFT_DISPLAY 2>&1)
@@ -64,7 +68,7 @@ alias workenv="source $HOME/bin/workenv"
 alias homeenv="source $HOME/bin/homeenv"
 alias lsfast="LS_COLORS='ex=00:su=00:sg=00:ca=00:' ls"
 alias java8="export JAVA_HOME=/usr/lib/jvm/java-1.8.0/"
-alias java11="export JAVA_HOME=/usr/lib/jvm/java-11/"
+alias java11="export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64"
 alias pron="perl -d $HOME/Dropbox/cypher.pl $HOME/Dropbox/pron"
 alias hpet_disable='grubby --args "hpet=disable" --update-kernel=ALL'
 
@@ -300,3 +304,21 @@ function video_reencode {
     ffmpeg -i $1 -c:v vp9 -c:a libvorbis $2
 }
 
+function split_flac {
+    if [[ -z $1 || -z $2 ]]; then
+        echo "Splits one flac file with a .cue into multiple"
+        echo "Usage: split_flac file.flac file.cue";
+        echo "You need to install followin dependencies in Ubuntu:\nsudo apt-get install cuetools shntool flac"
+        return;
+    fi
+    cuebreakpoints $2 | shnsplit -o flac $1
+}
+
+function to_mp3 {
+    if [[ -z $1 || -z $2 ]]; then
+        echo "Converts an audio file to mp3 with VBR"
+        echo "Usage: split_flac file.flac file.mp3";
+        return;
+    fi
+    ffmpeg -i $1 -c:v copy -q:a 0 $2
+}

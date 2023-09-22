@@ -20,11 +20,11 @@
 	process = git-lfs filter-process
     required = true
 
-[url "git@gitlab.booking.com:"]
-    insteadOf = https://gitlab.booking.com/
+# [url "git@gitlab.booking.com:"]
+    # insteadOf = https://gitlab.booking.com/
 
-[url "https://github.com/"]
-	insteadOf = git://github.com/
+# [url "https://github.com/"]
+	# insteadOf = git://github.com/
 [rerere]
 	enabled = true
 [http]
