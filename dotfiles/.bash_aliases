@@ -69,7 +69,7 @@ alias homeenv="source $HOME/bin/homeenv"
 alias lsfast="LS_COLORS='ex=00:su=00:sg=00:ca=00:' ls"
 alias java8="export JAVA_HOME=/usr/lib/jvm/java-1.8.0/"
 alias java11="export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64"
-alias pron="perl -d $HOME/Dropbox/cypher.pl $HOME/Dropbox/pron"
+alias pron="$HOME/Dropbox/cypher.pl $HOME/Dropbox/pron"
 alias hpet_disable='grubby --args "hpet=disable" --update-kernel=ALL'
 
 alias vcamera_load="sudo modprobe v4l2loopback exclusive_caps=1 card_label=External"
@@ -321,4 +321,18 @@ function to_mp3 {
         return;
     fi
     ffmpeg -i $1 -c:v copy -q:a 0 $2
+}
+
+function encode_dvd_rip {
+    if [[ -z $1 || -z $2 ]]; then
+        echo "Converts dvd rip into avi. Consider checking and updating bitrate before converting(mplayer -dvd-device /path_to_rip -identify dvd://2)"
+        echo "Usage: encode_dvd_rip /path/to/rip TRACK_NUMBER";
+        return;
+    fi
+    RIPDIR=$1
+    TITLE=$2
+    LAVCOPTS="vcodec=mpeg4:vbitrate=7500000:vhq:vqmin=2:autoaspect:v4mv:mbd=2:trell"
+    mencoder -dvd-device $RIPDIR dvd://$TITLE -ni -ovc lavc -lavcopts $LAVCOPTS:vpass=1 -oac copy -o /dev/null
+    mencoder -dvd-device $RIPDIR dvd://$TITLE -ni -ovc lavc -lavcopts $LAVCOPTS:vpass=2 -oac mp3lame -o video.avi
+    rm divx2pass.log
 }
