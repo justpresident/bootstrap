@@ -36,16 +36,16 @@ BOLDWHITE="\[\033[0;37m\]"
 #   {WHITE} {CYAN}@{RED}:{DARK_ORANGE} :WHITE#
 prompt_cmd () {
     if [[ $? == 0 ]]; then
-        CMD_PROMPT="${GREEN}>${NO_COLOR} ";
+        CMD_PROMPT="${GREEN}\\$ ${NO_COLOR}";
     else
-        CMD_PROMPT="${BRIGHT_RED}>${NO_COLOR} ";
+        CMD_PROMPT="${BRIGHT_RED}\\$ ${NO_COLOR}";
     fi
     if [[ -z $DOCKER_HOSTNAME ]]; then
         HN="${DARK_ORANGE}\\h";
     else
         HN="${RED}docker:$DARK_ORANGE$DOCKER_HOSTNAME";
     fi
-    PS1="$NO_COLOR[\t] $CYAN\u$NO_COLOR@$HN $NO_COLOR:\w\\$\n$CMD_PROMPT"
+    PS1="$NO_COLOR[\t] $CYAN\u$NO_COLOR@$HN $NO_COLOR:\w$VIRTUAL_ENV$CMD_PROMPT"
     unset HN
     unset CMD_PROMPT
 }
