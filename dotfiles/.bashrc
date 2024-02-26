@@ -29,16 +29,29 @@ WHITE="\[\033[0;37m\]"
 BOLDWHITE="\[\033[0;37m\]"
 
 # this is how it should look like on servers:
-#   [23:06:12] srv@srv-fedora-PF22711J :WHITE$
+#   [23:06:12] srv@srv-fedora-PF22711J :/$
 #   {WHITE} {CYAN}@{DARK_ORANGE} :WHITE$
 # this is how it should look like in containers:
 #   [00:28:12] root@docker:7aa246ac9744 :/#
 #   {WHITE} {CYAN}@{RED}:{DARK_ORANGE} :WHITE#
-HN=$(if [[ -z $DOCKER_HOSTNAME ]]; then echo "${DARK_ORANGE}\\h"; else echo "${RED}docker:$DARK_ORANGE$DOCKER_HOSTNAME"; fi)
-PS1="$NO_COLOR[\t] $CYAN\u$NO_COLOR@$HN $NO_COLOR:\w\\$ "
+prompt_cmd () {
+    if [[ $? == 0 ]]; then
+        CMD_PROMPT="${GREEN}>${NO_COLOR} ";
+    else
+        CMD_PROMPT="${BRIGHT_RED}>${NO_COLOR} ";
+    fi
+    if [[ -z $DOCKER_HOSTNAME ]]; then
+        HN="${DARK_ORANGE}\\h";
+    else
+        HN="${RED}docker:$DARK_ORANGE$DOCKER_HOSTNAME";
+    fi
+    PS1="$NO_COLOR[\t] $CYAN\u$NO_COLOR@$HN $NO_COLOR:\w\\$\n$CMD_PROMPT"
+    unset HN
+    unset CMD_PROMPT
+}
+PROMPT_COMMAND='prompt_cmd'
 PS2='continue-> '
 PS4='$0.$LINENO+ '
-unset HN
 
 # Bash cpecific
 HISTSIZE=1000000
@@ -47,7 +60,7 @@ HISTCONTROL=ignoreboth:erasedups
 shopt -s histappend # append the history at exit, not replace it
 # HISTTIMEFORMAT=''       # Save the timestamp, but don't output it
 HISTTIMEFORMAT='%F_%T '
-PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
+PROMPT_COMMAND="$PROMPT_COMMAND;history -a"
 
 
 # includes
