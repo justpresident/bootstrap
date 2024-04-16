@@ -45,7 +45,11 @@ prompt_cmd () {
     else
         HN="${RED}docker:$DARK_ORANGE$DOCKER_HOSTNAME";
     fi
-    PS1="$NO_COLOR[\t] $CYAN\u$NO_COLOR@$HN $NO_COLOR:\w$VIRTUAL_ENV$CMD_PROMPT"
+    PS1="$NO_COLOR[\t] $CYAN\u$NO_COLOR@$HN $NO_COLOR:\w";
+    if [[ -n $VIRTUAL_ENV ]]; then
+        PS1+="$GREEN($VIRTUAL_ENV)";
+    fi
+    PS1+=$CMD_PROMPT
     unset HN
     unset CMD_PROMPT
 }
