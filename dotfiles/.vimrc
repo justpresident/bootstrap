@@ -1,7 +1,8 @@
 " Set environment to 256 colours
 set t_Co=256
-set term=xterm-256color
-
+if !has('nvim')
+    set term=xterm-256color
+endif
 set tabstop=4
 set shiftwidth=4
 set smarttab
@@ -26,7 +27,7 @@ set hlsearch
 set incsearch
 set ignorecase
 
-set lz
+"set lz
 
 set ffs=unix,dos,mac
 set fencs=utf-8,cp1251,koi8-r,ucs-2,cp866
@@ -39,7 +40,7 @@ set guioptions-=T
 set guioptions-=m
 
 
-set exrc
+"set exrc
 set backspace=2
 set background=light
 
@@ -103,8 +104,10 @@ set wildignore+=*.tar.*
 
 set tags=./tags;,tags;,~/b/main/tags;
 
-set viminfo='10,\"100,:20,%,n~/.viminfo
-    au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+if !has('nvim')
+    set viminfo='10,\"100,:20,%,n~/.viminfo
+endif
+au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
 " work with buffers
 nmap <leader>T :enew<cr>
@@ -142,7 +145,7 @@ function! AirlineInit()
     au BufEnter,BufNewFile,BufRead * AirlineRefresh
 endfunction
 
-colorscheme italiano
+colorscheme srv
 autocmd VimEnter * call AirlineInit()
 
 "set runtimepath^=~/.vim/bundle/ctrlp.vim
