@@ -23,11 +23,11 @@ Recent URLs[$e]=file:$HOME/Dropbox/Photos/,file:$HOME/Dropbox/images/,file:$HOME
 detailViewIconSize=16
 
 [Shortcuts]
+close-active-terminal=Ctrl+Shift+Q
+file_quit=none
 grow-terminal-left=none
 grow-terminal-right=none
 new-session=Ctrl+N
-next-session=Shift+Right
-previous-session=Shift+Left
 
 [Window]
 DynamicTabTitles=true

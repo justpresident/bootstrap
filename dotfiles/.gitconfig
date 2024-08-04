@@ -1,5 +1,5 @@
 [user]
-    email = justpresident@gmail.com
+    email = srv@meta.com
     name = Roman Studenikin
 [core]
     editor = vim
@@ -29,3 +29,7 @@
 	enabled = true
 [http]
 	postBuffer = 524288000
+[credential "https://github.com"]
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = !/usr/bin/gh auth git-credential
