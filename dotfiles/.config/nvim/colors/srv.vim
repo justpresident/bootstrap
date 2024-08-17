@@ -47,7 +47,7 @@ hi Folded guifg=#000000 guibg=#e3c1a5 guisp=#e3c1a5 gui=NONE ctermfg=NONE ctermb
 hi PreCondit guifg=#00ffff guibg=NONE guisp=NONE gui=NONE ctermfg=14 ctermbg=NONE cterm=NONE
 hi Include guifg=#00ffff guibg=NONE guisp=NONE gui=NONE ctermfg=14 ctermbg=NONE cterm=NONE
 hi StatusLineNC guifg=#ffdab9 guibg=#737373 guisp=#737373 gui=bold ctermfg=223 ctermbg=243 cterm=bold
-hi NonText guifg=#0000ff guibg=NONE guisp=NONE gui=bold ctermfg=21 ctermbg=NONE cterm=bold
+hi NonText guifg=#2e2e2e guibg=NONE guisp=NONE gui=bold ctermfg=21 ctermbg=NONE cterm=bold
 hi DiffText guifg=NONE guibg=#ff8060 guisp=#ff8060 gui=bold ctermfg=NONE ctermbg=209 cterm=bold
 hi ErrorMsg guifg=#ffffff guibg=#ff0000 guisp=#ff0000 gui=bold ctermfg=15 ctermbg=196 cterm=bold
 hi Ignore guifg=#efface guibg=NONE guisp=NONE gui=bold ctermfg=230 ctermbg=NONE cterm=bold

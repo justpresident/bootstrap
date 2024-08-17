@@ -12,7 +12,7 @@ set t_Co=256
 let colors_name = "italiano"
 
 hi SpecialKey term=bold ctermfg=4 guifg=Blue
-hi NonText term=bold cterm=bold ctermfg=4 gui=bold guifg=Blue
+hi NonText term=bold cterm=bold ctermfg=4 gui=bold guifg=#2e2e2e
 hi Directory term=bold ctermfg=4 guifg=Blue
 hi ErrorMsg term=standout cterm=bold ctermfg=7 ctermbg=1 gui=bold guifg=White guibg=Red
 hi IncSearch term=reverse cterm=reverse gui=reverse
