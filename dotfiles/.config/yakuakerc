@@ -9,7 +9,7 @@ Translucency=true
 RememberFullscreen=true
 
 [Desktop Entry]
-DefaultProfile=DonCarleone.profile
+DefaultProfile=
 
 [Dialogs]
 FirstRun=false
@@ -18,8 +18,8 @@ FirstRun=false
 Favorites=
 
 [KFileDialog Settings]
-Recent Files[$e]=don_carleone_edit_1920x1080.jpg,file:$HOME/Dropbox/images/don_carleone_edit_1920x1080.jpg,file:$HOME/Dropbox/Photos/don_carleone_edit_1920x1080.jpg
-Recent URLs[$e]=file:$HOME/Dropbox/Photos/,file:$HOME/Dropbox/images/,file:$HOME/
+Recent Files[$e]=don_carleone_edit_1920x1080.jpg,file:$HOME/Pictures/don_carleone_edit_1920x1080.jpg,file:$HOME/civilization.png
+Recent URLs[$e]=file:$HOME/,file:$HOME/Documents/,file:$HOME/Pictures/
 detailViewIconSize=16
 
 [Shortcuts]
@@ -31,6 +31,7 @@ new-session=Ctrl+N
 
 [Window]
 DynamicTabTitles=true
+Height=100
 KeepAbove=false
 ShowOnAllDesktops=false
 ShowSystrayIcon=false
