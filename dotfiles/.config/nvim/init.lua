@@ -70,6 +70,9 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 5
 vim.o.sidescrolloff = 10
 
+-- Update window title
+vim.opt.title = true
+
 vim.o.termguicolors = true
 -- How many spaces make a tab?
 vim.o.tabstop = 4
@@ -86,6 +89,7 @@ vim.o.laststatus = 2
 vim.o.shadafile = vim.fn.stdpath 'data' .. '/shada'
 vim.o.shada = "!,'100,<50,s10,h,%,r/tmp,r/mnt"
 vim.o.virtualedit = 'block'
+
 
 -- To see what colorschemes are already installed, use `:Telescope colorscheme`.
 -- built with http://bytefluent.com/vivify/index.php
@@ -586,6 +590,7 @@ require('lazy').setup({
         -- But for many setups, the LSP (`tsserver`) will work just fine
         -- tsserver = {},
         lua_ls = {
+          -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#lua_ls
           -- cmd = {...},
           -- filetypes = { ...},
           -- capabilities = {},
@@ -619,6 +624,19 @@ require('lazy').setup({
             },
           },
         },
+        pylsp = {
+          -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#pylsp
+          settings = {
+            pylsp = {
+              plugins = {
+                pycodestyle = {
+                  -- ignore = { 'E501' },
+                  maxLineLength = 120
+                }
+              }
+            }
+          }
+        }
       }
 
       -- Ensure the servers and tools above are installed
@@ -690,6 +708,7 @@ require('lazy').setup({
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      "srv-meta/buck-vim-plugin",
     },
     config = function()
       -- See `:help cmp`
@@ -709,6 +728,7 @@ require('lazy').setup({
         },
         sources = {
           { name = 'nvim_lsp' },
+          { name = 'buck' },
           { name = 'path' },
         },
       }
@@ -722,6 +742,13 @@ require('lazy').setup({
     opts = {
       signs = false,
     },
+  },
+
+  {
+    "srv-meta/buck-vim-plugin",
+    config = function()
+      vim.keymap.set('n', '<leader>T', vim.fn.BuckOpenTarget, { desc = 'GoTo [T]arget under cursor' })
+    end,
   },
 
   { -- Highlight, edit, and navigate code
@@ -796,6 +823,26 @@ require('lazy').setup({
   defaults = {
     lazy = false,
     version = '*', -- try installing the latest stable version for plugins that support semver
+  },
+  dev = {
+    path = "~/github",
+    patterns = { "srv-meta" },
+    fallback = true,
+  },
+  install = {
+    colorscheme = { "srv" },
+  },
+  performance = {
+    rtp = {
+      disabled_plugins = {
+        "gzip",
+        "netrwPlugin",
+        "tarPlugin",
+        "tohtml",
+        "tutor",
+        "zipPlugin",
+      },
+    },
   },
   ui = {
     border = 'rounded',
