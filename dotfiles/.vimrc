@@ -13,7 +13,7 @@ set nolist                        " show invisible characters
 filetype plugin indent on
 syntax on
 
-au BufNewFile,BufRead *.py,*.cconf,*.cinc set filetype=python
+au BufNewFile,BufRead *.py,*.cconf,*.cinc,TARGETS,BUCK set filetype=python
 autocmd BufEnter *.py set ai sw=4 ts=4 smarttab expandtab fo=croql softtabstop=4
 autocmd BufNewFile,BufRead *.tt set ft=html
 set nu
@@ -215,6 +215,8 @@ endfunction
 command! -nargs=* Find :call Find(<f-args>)
 
 map <C-/> <C-_> 
+
+map <C-t> :exec("BuckOpenTarget")<CR>
 
 syn sync fromstart
 execute pathogen#infect()

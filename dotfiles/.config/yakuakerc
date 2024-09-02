@@ -31,7 +31,7 @@ new-session=Ctrl+N
 
 [Window]
 DynamicTabTitles=true
-Height=100
+Height=40
 KeepAbove=false
 ShowOnAllDesktops=false
 ShowSystrayIcon=false
