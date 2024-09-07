@@ -75,6 +75,14 @@ alias hpet_disable='grubby --args "hpet=disable" --update-kernel=ALL'
 alias vcamera_load="sudo modprobe v4l2loopback exclusive_caps=1 card_label=External"
 alias vcamera_feed="gphoto2 --stdout --capture-movie | ffmpeg -i - -vcodec rawvideo -pix_fmt yuv420p -threads 8 -f v4l2 /dev/video2"
 alias weather="curl -s http://wttr.in/london | grep -v Follow"
+alias vim="select_vim $@"
+
+function select_vim() {
+choose_from_menu 'Select' selected_choice vim nvim
+echo $selected_choice;
+$selected_choice $@;
+}
+
 kssh () {
     kubectl exec -it $(kubectl get po | grep $1 | head -n 1 | cut -f 1 -d' ') bash
 }
