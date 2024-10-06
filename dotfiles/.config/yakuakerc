@@ -9,7 +9,7 @@ Translucency=true
 RememberFullscreen=true
 
 [Desktop Entry]
-DefaultProfile=
+DefaultProfile=Godfather.profile
 
 [Dialogs]
 FirstRun=false
@@ -31,7 +31,7 @@ new-session=Ctrl+N
 
 [Window]
 DynamicTabTitles=true
-Height=40
+Height=100
 KeepAbove=false
 ShowOnAllDesktops=false
 ShowSystrayIcon=false

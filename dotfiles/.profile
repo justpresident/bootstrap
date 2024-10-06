@@ -24,3 +24,4 @@ fi
 TERM=xterm-256color
 export PATH=$PATH:/usr/local/go/bin
 export ANDROID_NDK_ROOT="/opt/android-sdk/ndk/25.1.8937393/"
+. "$HOME/.cargo/env"

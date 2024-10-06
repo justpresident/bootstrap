@@ -80,7 +80,7 @@ alias vim="select_vim $@"
 function select_vim() {
 choose_from_menu 'Select' selected_choice vim nvim
 echo $selected_choice;
-$selected_choice $@;
+$selected_choice "$@";
 }
 
 kssh () {
