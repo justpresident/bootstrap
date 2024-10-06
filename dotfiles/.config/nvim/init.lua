@@ -5,7 +5,7 @@ vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -90,6 +90,9 @@ vim.o.shadafile = vim.fn.stdpath 'data' .. '/shada'
 vim.o.shada = "!,'100,<50,s10,h,%,r/tmp,r/mnt"
 vim.o.virtualedit = 'block'
 
+-- disable netrw before enabling nvim-tree plugin, and all plugins for that matter
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- To see what colorschemes are already installed, use `:Telescope colorscheme`.
 -- built with http://bytefluent.com/vivify/index.php
@@ -748,6 +751,30 @@ require('lazy').setup({
     "srv-meta/buck-vim-plugin",
     config = function()
       vim.keymap.set('n', '<leader>T', vim.fn.BuckOpenTarget, { desc = 'GoTo [T]arget under cursor' })
+    end,
+  },
+
+  {
+    "nvim-tree/nvim-tree.lua",
+    config = function()
+      local tree = require("nvim-tree");
+      tree.setup({
+
+        sort = {
+          sorter = "case_sensitive",
+        },
+        view = {
+          width = 30,
+        },
+        renderer = {
+          group_empty = true,
+        },
+        filters = {
+          dotfiles = true,
+        },
+      })
+      vim.keymap.set('n', '<leader>tt', ":NvimTreeToggle<CR>", { desc = 'File [T]ree [T]oggle' })
+      vim.keymap.set('n', '<leader>tf', ":NvimTreeFindFileToggle<CR>", { desc = 'File [T]ree [F]ind File Toggle' })
     end,
   },
 
