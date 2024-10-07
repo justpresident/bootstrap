@@ -176,6 +176,10 @@ vim.keymap.set('n', '<C-Down>', 'mzMjzz`z', { desc = 'Scroll down' })
 vim.keymap.set('i', '<C-Up>', '<ESC>mzMkzz`zi<Right>', { desc = 'Scroll up' })
 vim.keymap.set('i', '<C-Down>', '<ESC>mzMjzz`zi<Right>', { desc = 'Scroll down' })
 
+--Open commands
+vim.keymap.set('n', '<leader>ob', function() vim.cmd('split term://bash') end, { desc = '[O]pen [B]ash' })
+vim.keymap.set('n', '<leader>ovb', function() vim.cmd('vsplit term://bash') end, { desc = '[O]pen [V]ertical [B]ash' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
