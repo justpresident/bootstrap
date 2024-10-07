@@ -713,6 +713,7 @@ require('lazy').setup({
       'hrsh7th/cmp-path',
       "srv-meta/buck-vim-plugin",
     },
+    commit = "ae644fe",
     config = function()
       -- See `:help cmp`
       local cmp = require 'cmp'
