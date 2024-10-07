@@ -3,7 +3,28 @@ set -ex
 
 nsamples=10
 sleeptime=0
-pid=$(pidof $1)
+
+while getopts ":p:n:s:" opt; do
+  case ${opt} in
+    p)
+      echo "Profiling pid $OPTARG."
+      pid=$OPTARG
+      ;;
+    n)
+      echo "Doing $OPTARG iterations."
+      nsamples=$OPTARG
+      ;;
+    s)
+        echo "Sleep time: $OPTARG"
+        sleeptime=$OPTARG
+        ;;
+    ?)
+      echo "Invalid option: -${OPTARG}."
+      exit 1
+      ;;
+  esac
+done
+
 
 for x in $(seq 1 $nsamples)
   do
