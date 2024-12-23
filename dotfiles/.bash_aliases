@@ -78,7 +78,7 @@ alias weather="curl -s http://wttr.in/london | grep -v Follow"
 alias vim="select_vim $@"
 
 function select_vim() {
-choose_from_menu 'Select' selected_choice vim nvim
+choose_from_menu 'Select' selected_choice nvim vim
 echo $selected_choice;
 $selected_choice "$@";
 }

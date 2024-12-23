@@ -643,6 +643,21 @@ require('lazy').setup({
               }
             }
           }
+        },
+        arduino_language_server = {
+          settings = {
+            arduino_language_server = {
+              -- clangd = "/home/italiano/.local/share/nvim/mason/bin/clangd",
+              capabilities = {
+                textDocument = {
+                  semanticTokens = vim.NIL,
+                },
+                workspace = {
+                  semanticTokens = vim.NIL,
+                },
+              },
+            }
+          }
         }
       }
 
@@ -732,7 +747,7 @@ require('lazy').setup({
           ['<Enter>'] = cmp.mapping.confirm { select = true },
 
           -- Manually trigger a completion from nvim-cmp.
-          ['<C-Space>'] = cmp.mapping.complete {},
+          ['<C-Space>'] = cmp.mapping.complete { "i", "c" },
         },
         sources = {
           { name = 'nvim_lsp' },
