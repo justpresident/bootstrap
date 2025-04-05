@@ -76,11 +76,17 @@ alias vcamera_load="sudo modprobe v4l2loopback exclusive_caps=1 card_label=Exter
 alias vcamera_feed="gphoto2 --stdout --capture-movie | ffmpeg -i - -vcodec rawvideo -pix_fmt yuv420p -threads 8 -f v4l2 /dev/video2"
 alias weather="curl -s http://wttr.in/london | grep -v Follow"
 alias vim="select_vim $@"
+alias v="nvim"
 
 function select_vim() {
-choose_from_menu 'Select' selected_choice nvim vim
-echo $selected_choice;
-$selected_choice "$@";
+    if [[ $(which nvim) ]]; then
+        choose_from_menu 'Select' selected_choice nvim vim
+        echo $selected_choice;
+        $selected_choice "$@";
+    else
+        echo "Nvim is not installed"
+        $(which vim) "$@"
+    fi
 }
 
 kssh () {
