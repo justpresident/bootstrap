@@ -3,6 +3,7 @@ Frames=0
 UseWMAssist=false
 
 [Appearance]
+TerminalHighlightOnManualActivation=true
 Translucency=true
 
 [Behavior]
@@ -18,9 +19,9 @@ FirstRun=false
 Favorites=
 
 [KFileDialog Settings]
-Recent Files[$e]=don_carleone_edit_1920x1080.jpg,file:$HOME/Pictures/don_carleone_edit_1920x1080.jpg,file:$HOME/civilization.png
-Recent URLs[$e]=file:$HOME/,file:$HOME/Documents/,file:$HOME/Pictures/
-detailViewIconSize=16
+Recent Files[$e]=don_carleone_edit_1920x1080.jpg,file:$HOME/Dropbox/images/123456_2302368334_26-06-2023-08-09-29.jpeg
+Recent URLs[$e]=file:$HOME/,file:$HOME/Documents/,file:$HOME/Pictures/,file:$HOME/Dropbox/images/
+detailViewIconSize=512
 
 [Shortcuts]
 close-active-terminal=Ctrl+Shift+Q

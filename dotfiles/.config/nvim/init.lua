@@ -358,31 +358,6 @@ require('lazy').setup({
   -- you do for a plugin at the top level, you can do for a dependency.
   --
   -- Use the `dependencies` key to specify the dependencies of a particular plugin
-    {
-        'justpresident/telescope-cache',
-        config = function()
-            require('telescope').setup {
-                extensions = {
-                    ['cache'] = {
-                        cache_dir = vim.fn.stdpath('cache') .. '/telescope-cache',
-                        directories = {
-                            vim.fn.expand('$HOME/github/telescope-cache'),
-                        },
-                        allow_patterns = {
-                            '%.lua$', '%.py$', '%.rs$', '%.c$', "%.h$", "%.cpp$", '%.thrift$',
-                            "Makefile$", "Dockerfile$", "BUCK$", "TARGETS$", "%.bzl$"
-                        },
-                        ignore_patterns = { '.git', '__pycache__', '.pytest_cache', 'target', 'build', 'buck-out' },
-                        max_file_size = 1024 * 1024,
-                        auto_refresh = true,
-                        refresh_interval = 3600,
-                        use_encryption = true,
-                    }
-                }
-            }
-        end,
-    },
-
   { -- Fuzzy Finder (files, lsp, etc)
     'nvim-telescope/telescope.nvim',
     event = 'VimEnter',
@@ -451,6 +426,19 @@ require('lazy').setup({
             require('telescope.themes').get_dropdown(),
           },
           ['cache'] = {
+            cache_dir = vim.fn.stdpath('cache') .. '/telescope-cache',
+            directories = {
+              vim.fn.expand('$HOME/github/telescope-cache'),
+            },
+            allow_patterns = {
+              '%.lua$', '%.py$', '%.rs$', '%.c$', "%.h$", "%.cpp$", '%.thrift$',
+              "Makefile$", "Dockerfile$", "BUCK$", "TARGETS$", "%.bzl$"
+            },
+            ignore_patterns = { '.git', '__pycache__', '.pytest_cache', 'target', 'build', 'buck-out' },
+            max_file_size = 1024 * 1024,
+            auto_refresh = true,
+            refresh_interval = 3600,
+            use_encryption = true,
           }
         },
       }
