@@ -69,7 +69,6 @@ alias homeenv="source $HOME/bin/homeenv"
 alias lsfast="LS_COLORS='ex=00:su=00:sg=00:ca=00:' ls"
 alias java8="export JAVA_HOME=/usr/lib/jvm/java-1.8.0/"
 alias java11="export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64"
-alias pron="$HOME/Dropbox/cypher.pl $HOME/Dropbox/pron"
 alias hpet_disable='grubby --args "hpet=disable" --update-kernel=ALL'
 
 alias vcamera_load="sudo modprobe v4l2loopback exclusive_caps=1 card_label=External"
