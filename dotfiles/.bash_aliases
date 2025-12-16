@@ -336,6 +336,17 @@ function to_mp3 {
     ffmpeg -i $1 -c:v copy -q:a 0 $2
 }
 
+function video_to_gif {
+    if [[ -z $1 || -z $2 ]]; then
+        echo "Converts an input video file into a small high quality gif"
+        echo "Usage: video_to_gif file.mkv file.gif";
+        echo "See explanation on https://superuser.com/questions/556029/how-do-i-convert-a-video-to-gif-using-ffmpeg-with-reasonable-quality"
+        return;
+    fi
+
+    ffmpeg -i $1 -vf "fps=10,scale=1280:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop 0 $2
+}
+
 function encode_dvd_rip {
     if [[ -z $1 || -z $2 ]]; then
         echo "Converts dvd rip into avi. Consider checking and updating bitrate before converting(mplayer -dvd-device /path_to_rip -identify dvd://2)"
