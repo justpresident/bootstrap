@@ -70,12 +70,33 @@ alias lsfast="LS_COLORS='ex=00:su=00:sg=00:ca=00:' ls"
 alias java8="export JAVA_HOME=/usr/lib/jvm/java-1.8.0/"
 alias java11="export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64"
 alias hpet_disable='grubby --args "hpet=disable" --update-kernel=ALL'
+alias uri_decode=$'perl -MURI::Encode -ne \'print URI::Encode::uri_decode($_)\''
+alias uri_encode=$'perl -MURI::Encode -ne \'print URI::Encode::uri_encode($_)\''
+
+alias bootstrap_cmd='echo "git clone https://github.com/justpresident/bootstrap.git; cd bootstrap; ./bootstrap.sh; cd -; source .bashrc"'
 
 alias vcamera_load="sudo modprobe v4l2loopback exclusive_caps=1 card_label=External"
 alias vcamera_feed="gphoto2 --stdout --capture-movie | ffmpeg -i - -vcodec rawvideo -pix_fmt yuv420p -threads 8 -f v4l2 /dev/video2"
 alias weather="curl -s http://wttr.in/london | grep -v Follow"
 alias vim="select_vim $@"
 alias v="nvim"
+
+vibe_it() {
+    CONTAINER_NAME="vibe_$(basename "$PWD")"
+    if [[ $1 == 'root' ]]; then
+        docker exec -u 0 -it "$CONTAINER_NAME" bash
+        return
+    fi
+    if [ "$(docker ps -aq -f name=^${CONTAINER_NAME}$)" ]; then
+        if [ "$(docker ps -q -f name=^${CONTAINER_NAME}$)" ]; then
+            docker exec -it "$CONTAINER_NAME" bash
+        else
+            docker start -ai "$CONTAINER_NAME"
+        fi
+    else
+        docker run --hostname "$CONTAINER_NAME" --name "$CONTAINER_NAME" -it -v "${HOME}/vibe_shared:/shared" -v "$(pwd):/workspace" vibe bash
+    fi
+}
 
 function select_vim() {
     if [[ $(which nvim) ]]; then
@@ -150,17 +171,50 @@ function throttle_cpu {
 }
 
 function d {
+    # Initialize default variables
+    local CONTAINER=""
+    local FORCE_BOOTSTRAP=""
+    local AS_ROOT=""
+    local USER_FLAG=""
+
+    # Parse options
+    OPTIND=1
+    while getopts "fr" opt; do
+        case "$opt" in
+            f) FORCE_BOOTSTRAP=1 ;;
+            r) AS_ROOT=1 ;;
+            *) echo "Usage: d [-f] [-r] container_name"; return 1 ;;
+        esac
+    done
+    shift $((OPTIND-1))
+
+    # The remaining argument is the container name
     CONTAINER=$1
-    FORCE_BOOTSTRAP=$2
 
-    bootstrapped=$(docker exec -it $CONTAINER bash -c "if [[ -f /bootstrap/bootstrap.sh ]]; then echo -n 1; fi")
-    if [[ ! -z $FORCE_BOOTSTRAP || -z $bootstrapped ]]; then
-        BOOTSTRAP_PATH=$(cat ~/.bootstrap_path)
-        docker cp $BOOTSTRAP_PATH $CONTAINER:bootstrap
-        docker exec -it -e UPDATE_FONTS=n $CONTAINER /bootstrap/bootstrap.sh > /dev/null
+    # Validation: Ensure container name was provided
+    if [[ -z "$CONTAINER" ]]; then
+        echo "Error: Container name is required."
+        echo "Usage: d [-f] [-r] container_name"
+        return 1
     fi
-    docker exec -it -e DOCKER_HOSTNAME=$CONTAINER $CONTAINER bash
 
+    # Check if already bootstrapped
+    local bootstrapped
+    bootstrapped=$(docker exec -i "$CONTAINER" bash -c "if [[ -f /bootstrap/bootstrap.sh ]]; then echo -n 1; fi")    
+
+    if [[ ! -z "$FORCE_BOOTSTRAP" || -z "$bootstrapped" ]]; then    
+        local BOOTSTRAP_PATH
+        BOOTSTRAP_PATH=$(cat ~/.bootstrap_path)    
+        docker cp "$BOOTSTRAP_PATH" "$CONTAINER":bootstrap    
+        docker exec -it -e UPDATE_FONTS=n "$CONTAINER" /bootstrap/bootstrap.sh > /dev/null    
+    fi    
+
+    # Set root flag if requested
+    if [[ ! -z "$AS_ROOT" ]]; then
+        USER_FLAG="--user root"
+    fi
+
+    docker exec -it $USER_FLAG -e DOCKER_HOSTNAME="$CONTAINER" "$CONTAINER" bash    
 }
 
 function save_nethack {
@@ -280,10 +334,6 @@ function tagit {
         --langmap=Perl:+.t
 }
 
-alias uri_decode=$'perl -MURI::Encode -ne \'print URI::Encode::uri_decode($_)\''
-alias uri_encode=$'perl -MURI::Encode -ne \'print URI::Encode::uri_encode($_)\''
-
-alias bootstrap_cmd='echo "git clone https://github.com/justpresident/bootstrap.git; cd bootstrap; ./bootstrap.sh; cd -; source .bashrc"'
 
 function bootstrap_host {
 	ssh -A $@ 'if [[ $(dpkg -l | cut -f1,3 -d" " | grep "ii git") == "" ]]; then sudo apt-get --yes --force-yes install git; fi; git clone https://github.com/justpresident/bootstrap.git; cd bootstrap; ./bootstrap.sh'

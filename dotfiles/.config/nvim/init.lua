@@ -428,17 +428,16 @@ require('lazy').setup({
           ['cache'] = {
             cache_dir = vim.fn.stdpath('cache') .. '/telescope-cache',
             directories = {
-              vim.fn.expand('$HOME/github/telescope-cache'),
+              vim.fn.expand('~/github/telescope-cache'),
             },
             allow_patterns = {
               '%.lua$', '%.py$', '%.rs$', '%.c$', "%.h$", "%.cpp$", '%.thrift$',
               "Makefile$", "Dockerfile$", "BUCK$", "TARGETS$", "%.bzl$"
             },
-            ignore_patterns = { '.git', '__pycache__', '.pytest_cache', 'target', 'build', 'buck-out' },
+            ignore_patterns = { '%.git', '__pycache__', '%.pytest_cache', 'target', 'build', 'buck%-out' },
             max_file_size = 1024 * 1024,
             auto_refresh = true,
             refresh_interval = 3600,
-            use_encryption = true,
           }
         },
       }

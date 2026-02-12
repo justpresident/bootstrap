@@ -23,6 +23,10 @@ Recent Files[$e]=don_carleone_edit_1920x1080.jpg,file:$HOME/Dropbox/images/12345
 Recent URLs[$e]=file:$HOME/,file:$HOME/Documents/,file:$HOME/Pictures/,file:$HOME/Dropbox/images/
 detailViewIconSize=512
 
+[PrintOptions]
+PrinterFriendly=true
+ScaleOutput=true
+
 [Shortcuts]
 close-active-terminal=Ctrl+Shift+Q
 file_quit=none
