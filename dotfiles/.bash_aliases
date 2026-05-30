@@ -94,6 +94,7 @@ vibe_it() {
             docker start -ai "$CONTAINER_NAME"
         fi
     else
+        mkdir -p ${HOME}/vibe_shared
         docker run --hostname "$CONTAINER_NAME" --name "$CONTAINER_NAME" -it -v "${HOME}/vibe_shared:/shared" -v "$(pwd):/workspace" vibe bash
     fi
 }
